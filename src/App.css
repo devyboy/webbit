@@ -44,3 +44,9 @@ input {
   margin: .5em;
   padding: .5em;
 }
+
+.third-party {
+  cursor: pointer;
+  margin-left: .5em;
+  margin-right: .5em;
+}
