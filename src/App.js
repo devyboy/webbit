@@ -32,13 +32,14 @@ class App extends Component {
     firebase.auth().signInWithEmailAndPassword(user, pass).then((result) => {
       this.setState({ email: firebase.auth().currentUser.email, error: "", thirdParty: false, });
     }, (error) => {
-      this.setState({ error: error.message, color: "red" })
+      this.setState({ error: error.message, color: "red" });
     });
   }
 
   register(user, pass) {
     firebase.auth().createUserWithEmailAndPassword(user, pass).then((result) => {
       this.setState({ error: "You've registered a new account and may now sign in with it.", color: "green" });
+      firebase.auth().currentUser.sendEmailVerification();
     }, (error) => {
       this.setState({ error: error.message, color: "red" });
     });
@@ -53,6 +54,7 @@ class App extends Component {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then((result) => {
       this.setState({ email: result.user.email, error: "", thirdParty: true, });
+      firebase.auth().currentUser.sendEmailVerification();
     }).catch((error) => {
       alert(error.message);
     });
@@ -90,9 +92,11 @@ class App extends Component {
 
   changePassword() {
     firebase.auth().currentUser.updatePassword(this.state.newPassword).then((result) => {
-      this.setState({ error: "Password successfully changed. I hope you remembered it!", color: "green" })
+      this.setState({ error: "Password successfully changed. I hope you remembered it!", color: "green" });
+      console.log("kapp");
     }, (error) => {
-      this.setState({ error: error.message, color: "red" })
+      this.setState({ error: error.message, color: "red" });
+      console.log("kepp");
     });
   }
 
@@ -142,10 +146,11 @@ class App extends Component {
                   Log Out
               </div>
             </div>
+            <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
           </div>
           :
           <div>
-            <h2> Welcome to WebSec Reddit <br/> If you have an account, please sign in. If not, please register one! </h2>
+            <h2> Welcome to WebSec RBAC <br/> If you have an account, please sign in. If not, please register one! </h2>
             <form className="form">
               <label>
                 <input type="email" value={this.state.user} onChange={this.handleUserChange.bind(this)} placeholder="Email"/>
