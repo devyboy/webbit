@@ -93,10 +93,16 @@ class App extends Component {
   changePassword() {
     firebase.auth().currentUser.updatePassword(this.state.newPassword).then((result) => {
       this.setState({ error: "Password successfully changed. I hope you remembered it!", color: "green" });
-      console.log("kapp");
     }, (error) => {
       this.setState({ error: error.message, color: "red" });
-      console.log("kepp");
+    });
+  }
+
+  forgotPassword() {
+    firebase.auth().sendPasswordResetEmail(this.state.user).then(() => {
+      this.setState({ error: "Password reset email sent.", color: "green" });
+    }, (error) => {
+      this.setState({ error: error.message, color: 'red' })
     });
   }
 
@@ -172,6 +178,12 @@ class App extends Component {
                   onClick={() => this.register(this.state.user, this.state.password)}
               >
                   Register
+              </div>
+              <div
+                  className="button"
+                  onClick={() => this.forgotPassword()}
+              >
+                  Forgot Password
               </div>
             </div>
             <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
