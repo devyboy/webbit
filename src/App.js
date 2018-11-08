@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import HomePage from "./HomePage";
 import firebase from "firebase";
 
 var config = {
@@ -21,7 +22,8 @@ class App extends Component {
       user: "",
       password: "",
       newPassword: "",
-      email: null,
+      userObject: null,
+      loggedIn: false,
       error: "",
       color: "",
       thirdParty: null,
@@ -30,7 +32,7 @@ class App extends Component {
 
   signIn(user, pass) {
     firebase.auth().signInWithEmailAndPassword(user, pass).then((result) => {
-      this.setState({ email: firebase.auth().currentUser.email, error: "", thirdParty: false, });
+      this.setState({ userObject: firebase.auth().currentUser, error: "", thirdParty: false, loggedIn: true});
     }, (error) => {
       this.setState({ error: error.message, color: "red" });
     });
@@ -45,15 +47,10 @@ class App extends Component {
     });
   }
 
-  logOut() {
-    firebase.auth().signOut();
-    window.location.reload();
-  }
-
   googleSignIn() {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then((result) => {
-      this.setState({ email: result.user.email, error: "", thirdParty: true, });
+      this.setState({ userObject: result.user, error: "", thirdParty: true, loggedIn: true});
       firebase.auth().currentUser.sendEmailVerification();
     }).catch((error) => {
       alert(error.message);
@@ -63,7 +60,7 @@ class App extends Component {
   facebookSignIn() {
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider).then((result) => {
-      this.setState({ email: result.user.email, error: "", thirdParty: true, });
+      this.setState({ userObject: result.user, error: "", thirdParty: true, loggedIn: true});
     }).catch((error) => {
       alert(error.message);
     });
@@ -72,7 +69,7 @@ class App extends Component {
   twitterSignIn() {
     var provider = new firebase.auth.TwitterAuthProvider();
     firebase.auth().signInWithPopup(provider).then((result) => {
-      this.setState({ email: result.additionalUserInfo.username, error: "", thirdParty: true, });
+      this.setState({ userObject: result.additionalUserInfo, error: "", thirdParty: true, loggedIn: true});
     }).catch((error) => {
       alert(error.message);
     });
@@ -84,18 +81,6 @@ class App extends Component {
 
   handlePassChange(event) {
     this.setState({ password: event.target.value });
-  }
-
-  handleNewPassChange(event) {
-    this.setState({ newPassword: event.target.value });
-  }
-
-  changePassword() {
-    firebase.auth().currentUser.updatePassword(this.state.newPassword).then((result) => {
-      this.setState({ error: "Password successfully changed. I hope you remembered it!", color: "green" });
-    }, (error) => {
-      this.setState({ error: error.message, color: "red" });
-    });
   }
 
   forgotPassword() {
@@ -118,42 +103,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        {this.state.email
+        {this.state.loggedIn
           ?
-          <div>
-            {this.state.thirdParty
-              ?
-              <p> Welcome {this.state.email}! <br /> You signed in with third party authentication so you can't change your password. </p>
-              :
-              <p> Welcome {this.state.email}! <br /> You can change your password below. </p>
-            }
-            {!this.state.thirdParty
-              &&
-              <form className="form">
-                <label>
-                  <input type="password" value={this.state.newPassword} onChange={this.handleNewPassChange.bind(this)} placeholder="New Password"/>
-                </label>
-              </form>
-            }
-            <div className="button-group">
-              {!this.state.thirdParty
-                &&
-                <div
-                    className="button"
-                    onClick={() => this.changePassword()}
-                >
-                    Change Password
-                </div>
-              }
-              <div
-                  className="button"
-                  onClick={() => this.logOut()}
-              >
-                  Log Out
-              </div>
-            </div>
-            <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
-          </div>
+          <HomePage
+            userObject={this.state.userObject}
+          />
           :
           <div>
             <h2> Welcome to WebSec RBAC <br/> If you have an account, please sign in. If not, please register one! </h2>
