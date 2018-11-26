@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import HomePage from "./HomePage";
+import ChangePassword from './ChangePassword';
 import firebase from "firebase";
 
 var config = {
