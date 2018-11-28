@@ -7,7 +7,10 @@ import firebase from "firebase";
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      newPassword: null,
+
+    };
   }
 
   logOut() {
@@ -24,7 +27,6 @@ class HomePage extends Component {
     }, (error) => {
       this.setState({ error: error.message, color: "red" });
     });
-    
   }
 
   render() {
@@ -37,7 +39,6 @@ class HomePage extends Component {
             :
             <p> Welcome </p>
           }
-          
           <div className="button-group">
             {!this.state.thirdParty
               &&
@@ -58,7 +59,6 @@ class HomePage extends Component {
           <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
         </div>
       </Router>
-      
     );
   }
 }
