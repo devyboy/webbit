@@ -109,6 +109,22 @@ input {
   padding: .5em;
 }
 
+.new-post {
+  margin: 1em;
+  background-color: #0a34a8;
+  color: white;
+  padding: .5em;
+  padding-top: .45em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.15em;
+  text-decoration: none;
+}
+
+.new-post:hover {
+  background-color: #0a15a8; 
+}
+
 .third-party {
   cursor: pointer;
   margin-left: .5em;
