@@ -24,41 +24,44 @@ class ChangePassword extends Component {
     });
   }
 
+  // componentWillMount() {
+  //   if (this.props.location.state.userObject == null) {
+  //     window.location.href = "/login";
+  //   }
+  // }
+
   render() {
+    console.log(this.props)
     return(
       <div>
-        {this.state.thirdParty
-          ?
-          <p> Welcome {this.props.userObject.email}! <br /> You signed in with third party authentication so you can't change your password. </p>
-          :
-          <p> Welcome {this.props.userObject.email}! <br /> You can change your password below. </p>
-        }
-        {!this.state.thirdParty
-          &&
-          <form className="form">
-            <label>
-              <input type="password" value={this.state.newPassword} onChange={this.handleNewPassChange.bind(this)} placeholder="New Password"/>
-            </label>
-          </form>
-        }
+        <p> Welcome {this.props.userObject.email}! <br /> You can change your password below. </p>
+        <form className="form">
+          <label>
+            <input type="password" value={this.state.newPassword} onChange={this.handleNewPassChange.bind(this)} placeholder="New Password"/>
+          </label>
+        </form>
         <div className="button-group">
-          {!this.state.thirdParty
-            &&
-            <div
-                className="button"
-                onClick={() => this.changePassword()}
-            >
-                Change Password
-            </div>
-          }
+          <div
+              className="button"
+              onClick={() => this.changePassword()}
+          >
+              Change Password
+          </div>
           <div
               className="button"
               onClick={() => this.logOut()}
           >
               Log Out
           </div>
+          <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
+          <div
+              className="button"
+              onClick={() => this.logOut()}
+          >
+              Log Out
+          </div>
+          <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
         </div>
-        <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
       </div>
     );
   }
