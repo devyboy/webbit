@@ -4,6 +4,7 @@ import "./App.css";
 import {
     Redirect,
   } from "react-router-dom";
+import ReactLoading from "react-loading";
 
 class Login extends Component {
     constructor(props) {
@@ -81,16 +82,22 @@ class Login extends Component {
     
     render() {
         if (this.props.userObject === false) {
-            return null;
+            return(
+                <div className="App">
+                    <div className="App-header">
+                        <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
+                    </div>
+                </div>
+            );
         }
         if (this.props.userObject) {
             return(
-                <Redirect to={"/"} />
+                <Redirect to={"/home"} />
             );
         }
         return(
             <div className="App">
-                <h1 className="App-title" onClick={() => window.open("https://github.com/devyboy/websec-reddit")}>Webbit</h1>
+                <h1 className="App-title" onClick={() => window.location.href="/home"}>Webbit</h1>
                 <header className="App-header">
                     <h2> If you have an account, sign in. <br /> If not, register one! </h2>
                     <form className="form">
