@@ -17,7 +17,7 @@
   float: left;
   position: absolute;
   color: white;
-  margin: .5em;
+  margin: .75em;
   cursor: pointer;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .sign-out {
-  margin: 1em;
+  margin: 1.5em;
   background-color: #d9534f;
   color: white;
   padding: .5em;
@@ -46,7 +46,8 @@
 
 .account-name {
   margin: 1.5em;
-  margin-right: .5em;
+  margin-top: 2em;
+  margin-right: 0em;
   cursor: pointer;
   font-size: 1.15em;
   text-decoration: none;
@@ -58,7 +59,7 @@
 }
 
 .sign-in {
-  margin: 1em;
+  margin: 1.5em;
   background-color: #28a745;
   color: white;
   padding: .5em;
@@ -103,15 +104,16 @@
 }
 
 input {
-  font-size: 15px;
   border-radius: 7px;
-  margin: .5em;
-  padding: .5em;
+  margin: .25em;
+  padding: .25em;
+  font-size: 15px;
 }
 
 .new-post {
-  margin: 1em;
-  background-color: #0a34a8;
+  margin: 1.5em;
+  margin-right: 0em;
+  background-color: #339cf7;
   color: white;
   padding: .5em;
   padding-top: .45em;
@@ -122,7 +124,7 @@ input {
 }
 
 .new-post:hover {
-  background-color: #0a15a8; 
+  background-color: #287cc5; 
 }
 
 .third-party {
@@ -137,4 +139,13 @@ input[type='checkbox'] {
   background:white;
   border-radius:5px;
   border:2px solid #555;
+}
+
+.content-input {
+  border-radius: 7px;
+  font-size: 18px;
+  margin: .5em;
+  padding: .5em;
+  background-color: #3d4148;
+  color: white;
 }

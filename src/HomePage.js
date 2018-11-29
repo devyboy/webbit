@@ -3,6 +3,9 @@ import firebase from "firebase";
 import './App.css';
 import { Link } from "react-router-dom";
 import Thread from './Thread';
+import Loading from "./loading.svg";
+import ReactLoading from 'react-loading';
+
 
 class HomePage extends Component {
   constructor(props) {
@@ -26,15 +29,19 @@ class HomePage extends Component {
 
   componentDidMount() {
     firebase.database().ref("/threads/").on('value', (snapshot) => {
-      if (snapshot.val() !== null) {
-        this.setState({ threads: Object.entries(snapshot.val()) });
-      }
+      this.setState({ threads: Object.entries(snapshot.val()) });
     });
   }
 
   render() {
     if (this.props.userObject === false) {
-      return null;
+      return(
+        <div className="App">
+            <div className="App-header">
+                <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
+            </div>
+        </div>
+      );
     }
     return(
         <div className="App">
@@ -55,18 +62,21 @@ class HomePage extends Component {
               </Link>
             </div>
           }
-          
           <header className="App-header">
-            {<h2>There are no threads at this time, feel free to make one!</h2> || this.state.threads.map((thread, key) => {
-              return(
-                <div key={key}>
-                  <h1>{thread[1].title}</h1>
-                  <p>{thread[1].content}</p>
-                </div>
-              )
-            })}
+            {this.state.threads
+              ? 
+              this.state.threads.map((thread, key) => {
+                return(
+                  <div key={key}>
+                    <h1>{thread[1].title}</h1>
+                    <p>{thread[1].content}</p>
+                  </div>
+                );
+              })
+              :
+              <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
+            }
           </header>
-          
         </div>
     );
   }

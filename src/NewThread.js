@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import './App.css';
 import firebase from "firebase";
+import { Redirect } from "react-router-dom";
+import './App.css';
+import ReactLoading from "react-loading";
 
 class NewThread extends Component {
     constructor(props) {
@@ -37,25 +39,35 @@ class NewThread extends Component {
     }
 
     render() {
-        if (this.props.userObject == null) {
-            return <h1>You need to sign in to make threads!</h1>
+        if (this.props.userObject === null) {
+            return <Redirect to="/home" />
         }
+        
+        if (this.props.userObject === false) {
+            return(
+                <div className="App">
+                    <div className="App-header">
+                        <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
+                    </div>
+                </div>
+            );
+        }
+
         return(
-            <div>
-                <form className="form">
-                    <label>
-                        <input type="text" value={this.state.title} onChange={this.handleTitleChange.bind(this)} placeholder="Title"/>
-                    </label>
-                    <br/>
-                    <label>
-                        <input type="text" value={this.state.content} onChange={this.handleContentChange.bind(this)} placeholder="Content"/>
-                    </label>
-                </form>
-                <div
-                    className="button"
-                    onClick={this.publishThread.bind(this)}
-                >
-                    Yeet
+            <div className="App">
+                <h1 className="App-title" onClick={() => window.location.href="/home"}>Webbit</h1>
+                <div className="App-header">
+                    <h2>New Thread</h2>
+                    <textarea className={"content-input"} value={this.state.title} onChange={this.handleTitleChange.bind(this)} placeholder="Title" cols="50" rows="1">
+                    </textarea>
+                    <textarea className={"content-input"} value={this.state.content} onChange={this.handleContentChange.bind(this)} placeholder="Content" cols="50" rows="10">
+                    </textarea>
+                    <div
+                        className="button"
+                        onClick={this.publishThread.bind(this)}
+                    >
+                        Post
+                    </div>
                 </div>
             </div>
         );
