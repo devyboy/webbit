@@ -12,16 +12,26 @@ class Settings extends Component {
     }
 
     render() {
-        
         if (this.props.userObject === false) {
-            return null;
+            return(
+                <Redirect to={"/"} />
+            );
         }
-        
+
         return (
             <div className="App">
                 <p>Testing</p>
             </div>
         );
+        
+        /*
+        if (this.props.userObject) {
+            return(
+                <Redirect to={"/"} />
+            );
+        }
+        */
+        
     }
 }
 
