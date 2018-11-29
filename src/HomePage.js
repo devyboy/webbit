@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from "firebase";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
 
 class HomePage extends Component {
@@ -30,9 +29,6 @@ class HomePage extends Component {
   }
 
   render() {
-    if (this.props.userObject == false) {
-      return null;
-    }
     return(
         <div>
           {this.props.userObject && 
@@ -40,8 +36,13 @@ class HomePage extends Component {
             sign out
           </div>
           }
-          {this.state.threads.map((thread) => {
-            return(<h1>{thread[1].title}</h1>)
+          {this.state.threads.map((thread, key) => {
+            return(
+              <div key={key}>
+                <h1>{thread[1].title}</h1>
+                <p>{thread[1].content}</p>
+              </div>
+            );
           })}
         </div>
     );

@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import HomePage from "./HomePage";
 import "./App.css";
 import {
-    BrowserRouter as Router,
     Redirect,
   } from "react-router-dom";
-import Loading from "./loading.gif";
 
 class Thread extends Component {
     constructor(props) {
@@ -83,9 +80,6 @@ class Thread extends Component {
     }
     
     render() {
-        if (this.props.userObject == false) {
-            return null;
-        }
         if (this.props.userObject) {
             return(
                 <Redirect to={"/"} />

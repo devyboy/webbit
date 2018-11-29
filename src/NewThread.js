@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Login from "./Login";
-import Settings from "./Settings";
 import './App.css';
-import { throws } from "assert";
-import { runInThisContext } from "vm";
 import firebase from "firebase";
-
-
 
 class NewThread extends Component {
     constructor(props) {
@@ -44,6 +37,9 @@ class NewThread extends Component {
     }
 
     render() {
+        if (this.props.userObject == null) {
+            return <h1>You need to sign in to make threads!</h1>
+        }
         return(
             <div>
                 <form className="form">
