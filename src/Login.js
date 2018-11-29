@@ -5,7 +5,7 @@ import {
     Redirect,
   } from "react-router-dom";
 
-class Thread extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -155,4 +155,4 @@ class Thread extends Component {
     }
 }
 
-export default Thread;
+export default Login;
