@@ -15,12 +15,13 @@ class Thread extends Component {
             error: "",
             color: "",
             thirdParty: null,
+            checked: true,
           }
     }
       
     signIn(user, pass) {
         firebase.auth().signInWithEmailAndPassword(user, pass).then(() => {
-            window.location.href = "/";
+            return <Redirect to={"/"} />;
         }, (error) => {
             this.setState({ error: error.message, color: "red" });
         });
@@ -28,8 +29,7 @@ class Thread extends Component {
     
     register(user, pass) {
         firebase.auth().createUserWithEmailAndPassword(user, pass).then(() => {
-            this.setState({ error: "You've registered a new account and may now sign in with it.", color: "green" });
-            firebase.auth().currentUser.sendEmailVerification();
+            this.state.checked && firebase.auth().currentUser.sendEmailVerification();
         }, (error) => {
             this.setState({ error: error.message, color: "red" });
         });
@@ -80,69 +80,77 @@ class Thread extends Component {
     }
     
     render() {
+        if (this.props.userObject === false) {
+            return null;
+        }
         if (this.props.userObject) {
             return(
                 <Redirect to={"/"} />
             );
         }
         return(
-            <div>
-            <h2> If you have an account, please sign in. If not, please register one! </h2>
-            <form className="form">
-              <label>
-                <input type="email" value={this.state.user} onChange={this.handleUserChange.bind(this)} placeholder="Email"/>
-              </label>
-              <br/>
-              <label>
-                <input type="password" value={this.state.password} onChange={this.handlePassChange.bind(this)} placeholder="Password"/>
-              </label>
-            </form>
-            <div className="button-group">
-              <div
-                  className="button"
-                  onClick={() => this.signIn(this.state.user, this.state.password)}
-              >
-                  Sign In
-              </div>
+            <div className="App">
+                <h1 className="App-title" onClick={() => window.open("https://github.com/devyboy/websec-reddit")}>Webbit</h1>
+                <header className="App-header">
+                    <h2> If you have an account, sign in. <br /> If not, register one! </h2>
+                    <form className="form">
+                        <label>
+                            <input type="email" value={this.state.user} onChange={this.handleUserChange.bind(this)} placeholder="Email"/>
+                        </label>
+                        <br/>
+                        <label>
+                            <input type="password" value={this.state.password} onChange={this.handlePassChange.bind(this)} placeholder="Password"/>
+                        </label>
+                    </form>
+                    <div className="button-group">
+                        <div
+                            className="button"
+                            onClick={() => this.signIn(this.state.user, this.state.password)}
+                        >
+                            Sign In
+                        </div>
 
-              <div
-                  className="button"
-                  onClick={() => this.forgotPassword()}
-              >
-                  Forgot Password
-              </div>
+                        <div
+                            className="button"
+                            onClick={() => this.forgotPassword()}
+                        >
+                            Forgot Password
+                        </div>
+                    </div>
+                    <div
+                        className="button"
+                        onClick={() => this.register(this.state.user, this.state.password)}
+                    >
+                        Register
+                    </div>
+                    <p style={{ marginBottom: 0 }}>Send verification email?</p>
+                    <input type={"checkbox"} name={"email"} checked={this.state.checked} onChange={() => this.setState({ checked: !this.state.checked })} />
+                    <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
+                    <div>
+                        <h2>Or sign in with:</h2>
+                        <div className="button-group">
+                            <div
+                                className="third-party"
+                                onClick={() => this.googleSignIn()}
+                            >
+                                <img style={{width: '50px'}} src="https://s18955.pcdn.co/wp-content/uploads/2017/05/Google.png" alt="Google" />
+                            </div>
+                            <div
+                                className="third-party"
+                                onClick={() => this.facebookSignIn()}
+                            >
+                                <img style={{width: '50px'}} src="https://s18955.pcdn.co/wp-content/uploads/2017/05/Facebook.png" alt="Facebook" />
+                            </div>
+                            <div
+                                className="third-party"
+                                onClick={() => this.twitterSignIn()}
+                            >
+                                <img style={{width: '50px'}} src="https://s18955.pcdn.co/wp-content/uploads/2017/05/Twitter.png" alt="Twitter" />
+                            </div>
+                        </div>
+                    </div>
+                </header>
             </div>
-            <div
-                  className="button"
-                  onClick={() => this.register(this.state.user, this.state.password)}
-              >
-                  Register
-              </div>
-            <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
-            <div>
-              <h2>Or sign in with:</h2>
-              <div className="button-group">
-                <div
-                    className="third-party"
-                    onClick={() => this.googleSignIn()}
-                >
-                    <img style={{width: '50px'}} src="https://s18955.pcdn.co/wp-content/uploads/2017/05/Google.png" alt="Google" />
-                </div>
-                <div
-                    className="third-party"
-                    onClick={() => this.facebookSignIn()}
-                >
-                    <img style={{width: '50px'}} src="https://s18955.pcdn.co/wp-content/uploads/2017/05/Facebook.png" alt="Facebook" />
-                </div>
-                <div
-                    className="third-party"
-                    onClick={() => this.twitterSignIn()}
-                >
-                    <img style={{width: '50px'}} src="https://s18955.pcdn.co/wp-content/uploads/2017/05/Twitter.png" alt="Twitter" />
-                </div>
-              </div>
-            </div>
-          </div>
         );
     }
 }

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import firebase from "firebase";
 import './App.css';
+import { Link } from "react-router-dom";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      threads: [],
+      threads: null,
     };
   }
 
@@ -24,26 +25,44 @@ class HomePage extends Component {
 
   componentDidMount() {
     firebase.database().ref("/threads/").on('value', (snapshot) => {
-      this.setState({ threads: Object.entries(snapshot.val()) });
+      if (snapshot.val() !== null) {
+        this.setState({ threads: Object.entries(snapshot.val()) });
+      }
     });
   }
 
   render() {
+    if (this.props.userObject == false) {
+      return null;
+    }
     return(
-        <div>
-          {this.props.userObject && 
-            <div onClick={() => firebase.auth().signOut()}>
-            sign out
-          </div>
-          }
-          {this.state.threads.map((thread, key) => {
-            return(
-              <div key={key}>
-                <h1>{thread[1].title}</h1>
-                <p>{thread[1].content}</p>
+        <div className="App">
+          <h1 className="App-title" onClick={() => window.open("https://github.com/devyboy/websec-reddit")}>Webbit</h1>
+          {this.props.userObject 
+            ? 
+            <div className="App-settings">
+              <Link className="account-name" to={"/settings"}>{this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}</Link>
+              <div className="sign-out" onClick={() => firebase.auth().signOut()}>
+                Logout
               </div>
-            );
-          })}
+            </div>
+            :
+            <div className="App-settings">
+              <Link className="sign-in" to="/login">
+                Login
+              </Link>
+            </div>
+          }
+          <header className="App-header">
+            {<h2>There are no threads at this time, feel free to make one!</h2> || this.state.threads.map((thread, key) => {
+              return(
+                <div key={key}>
+                  <h1>{thread[1].title}</h1>
+                  <p>{thread[1].content}</p>
+                </div>
+              )
+            })}
+          </header>
         </div>
     );
   }
