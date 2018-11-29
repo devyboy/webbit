@@ -9,7 +9,7 @@ class Thread extends Component {
         super(props);
     }
     render() {
-        return(<h1>{this.props.match.params.tid}</h1>);
+        return(<h1>Thread ID: {this.props.match.params.tid}</h1>);
     }
 }
 

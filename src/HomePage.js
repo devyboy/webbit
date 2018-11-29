@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
+import firebase from "firebase";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
-import ChangePassword from './ChangePassword';
-import firebase from "firebase";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newPassword: null,
-
+      threads: [],
     };
   }
 
-  logOut() {
-    firebase.auth().signOut();
-    window.location.reload();
-  }
   handleNewPassChange(event) {
     this.setState({ newPassword: event.target.value });
   }
@@ -29,36 +23,27 @@ class HomePage extends Component {
     });
   }
 
+  componentDidMount() {
+    firebase.database().ref("/threads/").on('value', (snapshot) => {
+      this.setState({ threads: Object.entries(snapshot.val()) });
+    });
+  }
+
   render() {
+    if (this.props.userObject == false) {
+      return null;
+    }
     return(
-      <Router>
         <div>
-          {this.props.userObject.email
-            ?
-            <p> Welcome {this.props.userObject.email}! </p>
-            :
-            <p> Welcome </p>
-          }
-          <div className="button-group">
-            {!this.state.thirdParty
-              &&
-              <div
-                  className="button"
-                  onClick={this.changePassword.bind(this)}
-              >
-                  Change Password
-              </div>
-            }
-            <div
-                className="button"
-                onClick={() => this.logOut()}
-            >
-                Log Out
-            </div>
+          {this.props.userObject && 
+            <div onClick={() => firebase.auth().signOut()}>
+            sign out
           </div>
-          <p style={{ color: this.state.color }} className="error">{this.state.error}</p>
+          }
+          {this.state.threads.map((thread) => {
+            return(<h1>{thread[1].title}</h1>)
+          })}
         </div>
-      </Router>
     );
   }
 }
