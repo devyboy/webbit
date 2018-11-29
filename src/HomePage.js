@@ -32,7 +32,7 @@ class HomePage extends Component {
   }
 
   render() {
-    if (this.props.userObject == false) {
+    if (this.props.userObject === false) {
       return null;
     }
     return(
