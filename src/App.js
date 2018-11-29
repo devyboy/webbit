@@ -7,7 +7,6 @@ import Settings from "./Settings";
 import Thread from "./Thread";
 import FourOhFour from "./FourOhFour";
 import NewThread from "./NewThread";
-import ChangePassword from './ChangePassword';
 import './App.css';
 
 var config = {
@@ -43,7 +42,6 @@ class App extends Component {
                         <Route path="/new" render={(props) => <NewThread {...props} userObject={this.state.userObject} />} />
                         <Route path="/login" render={(props) => <Login {...props} userObject={this.state.userObject} />} />
                         <Route path="/settings/" render={(props) => <Settings {...props} userObject={this.state.userObject} />} />
-                        <Route path="/changepass" render={(props) => <ChangePassword {...props} userObject={this.state.userObject} />} />
                         <Route component={FourOhFour} />
                 </Switch>
             </Router>
