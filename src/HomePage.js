@@ -6,7 +6,7 @@ import Thread from './Thread';
 import NewThread from "./NewThread";
 import Loading from "./loading.svg";
 import ReactLoading from 'react-loading';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 
 class HomePage extends Component {
@@ -22,7 +22,7 @@ class HomePage extends Component {
     firebase.auth().currentUser.updatePassword(this.state.newPassword).then((result) => {
       this.setState({ error: "Password successfully changed. I hope you remembered it!", color: "green" });
     }, (error) => {
-      this.setState({ error: error.message, color: "red" });
+      alert(error);
     });
   }
 
@@ -49,7 +49,25 @@ class HomePage extends Component {
     }
     return(
         <div className="App">
-          <h1 className="App-title" onClick={() => window.open("https://github.com/devyboy/websec-reddit")}>Webbit</h1>
+          <div className="App-topbar">
+            <h1 className="App-title" onClick={() => window.open("https://github.com/devyboy/websec-reddit")}>Webbit</h1>
+            {this.props.userObject 
+              ? 
+              <div className="App-settings">
+                <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
+                <div className="new-post" onClick={() => this.setState({ open: true })}>New Post</div>
+                <div className="sign-out" onClick={() => firebase.auth().signOut()}>
+                  Logout
+                </div>
+              </div>
+              :
+              <div className="App-settings">
+                <Link className="sign-in" to="/login">
+                  Login
+                </Link>
+              </div>
+            }
+          </div>
           <Modal style={{ color: "white" }} show={this.state.open} onHide={() => this.setState({ open: false })}>
             <Modal.Header style={{ backgroundColor: "#3d4148" }} >
               <Modal.Title style={{fontSize: "1.5em"}}>
@@ -58,35 +76,25 @@ class HomePage extends Component {
             </Modal.Header>
             <NewThread closeModal={() => this.setState({ open: false })} userObject={this.props.userObject} />
           </Modal>
-          {this.props.userObject 
-            ? 
-            <div className="App-settings">
-              <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
-              <div className="new-post" onClick={() => this.setState({ open: true })}>New Post</div>
-              <div className="sign-out" onClick={() => firebase.auth().signOut()}>
-                Logout
-              </div>
-            </div>
-            :
-            <div className="App-settings">
-              <Link className="sign-in" to="/login">
-                Login
-              </Link>
-            </div>
-          }
           <header className="App-header">
             {this.state.threads
               ?
-              this.state.threads.map((thread, key) => {
+              <div className="thread-holder">
+                {this.state.threads.map((thread, key) => {
                 return(
-                  <div key={key}>
-                    <h1>{thread[1].title}</h1>
-                    <p>{thread[1].content}</p>
-                  </div>
+                  <Thread
+                    key={key}
+                    title={thread[1].title}
+                    content={thread[1].content}
+                    author={thread[1].author}
+                    upvotes={thread[1].upvotes}
+                    id={thread[0]}
+                  />
                 );
-              })
+              })}
+              </div>
               :
-              <h1>There are no threads, feel free to make one!</h1>
+              null
             }
             {this.state.threads === null && <ReactLoading type={"spin"} color={"white"} height={150} width={150} />}
           </header>

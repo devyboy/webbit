@@ -97,16 +97,16 @@ class Login extends Component {
         }
         return(
             <div className="App">
-                <h1 className="App-title" onClick={() => window.location.href="/home"}>Webbit</h1>
+                <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
                 <header className="App-header">
                     <h2> If you have an account, sign in. <br /> If not, register one! </h2>
                     <form className="form">
                         <label>
-                            <input type="email" value={this.state.user} onChange={this.handleUserChange.bind(this)} placeholder="Email"/>
+                            <input style={{color: "black"}} type="email" value={this.state.user} onChange={this.handleUserChange.bind(this)} placeholder="Email"/>
                         </label>
                         <br/>
                         <label>
-                            <input type="password" value={this.state.password} onChange={this.handlePassChange.bind(this)} placeholder="Password"/>
+                            <input style={{color: "black"}} type="password" value={this.state.password} onChange={this.handlePassChange.bind(this)} placeholder="Password"/>
                         </label>
                     </form>
                     <div className="button-group">
