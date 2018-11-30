@@ -89,6 +89,7 @@ class HomePage extends Component {
                   <Thread
                     key={key}
                     userObject={this.props.userObject}
+                    thread={thread}
                     title={thread[1].title}
                     content={thread[1].content}
                     author={thread[1].author}
