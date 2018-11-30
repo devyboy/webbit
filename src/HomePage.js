@@ -47,6 +47,11 @@ class HomePage extends Component {
         </div>
       );
     }
+    
+    if (this.state.threads) {
+      this.state.threads.sort().reverse(); // Order threads from latest to oldest
+    }
+
     return(
         <div className="App">
           <div className="App-topbar">
