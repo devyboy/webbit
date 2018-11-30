@@ -181,6 +181,8 @@ input[type='checkbox'] {
 .thread-holder {
   width: 50%;
   align-content: flex-start;
+  margin-top: 100px;
+  margin-bottom: 40px;
 }
 
 .thread-author {
