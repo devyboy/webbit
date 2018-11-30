@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { Link } from "react-router-dom"
+import TimeAgo from 'react-timeago'
 import Upvote from "./upvote.png";
 import Downvote from "./downvote.png";
 import DownvoteGrey from "./downvotegrey.png";
 import UpvoteGrey from "./upvotegrey.png";
+
 
 
 class Thread extends Component {
@@ -56,9 +58,11 @@ class Thread extends Component {
                 </div>
                 <Link to={`/home/${this.props.id}`} className="thread-text">
                     <div className="thread-title">{this.props.title}</div>
-                    <div className="thread-author" style={{fontSize: 15}}>Posted by: {this.props.author}</div>
+                    <div className="thread-author" style={{fontSize: 15}}>
+                        Posted by: {this.props.author + " "}
+                        <TimeAgo live={false} date={new Date(this.props.date * 1000)} />
+                    </div>
                     <div className="comments" style={{fontSize: 15}}>{this.props.thread[1].comments.numComments} Comments</div>
-                    {/*<div classname="thread-content" style={{fontSize: 20}}>{this.props.content}</div>*/}
                 </Link>
             </div>
         );

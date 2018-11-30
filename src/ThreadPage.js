@@ -4,13 +4,27 @@ import {
     Link,
   } from "react-router-dom";
 import ReactLoading from "react-loading";
+import TimeAgo from 'react-timeago'
 import './App.css';
 
 
 class Settings extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            currentThread: false,
+        };
+    }
+
+    componentDidMount() {
+        firebase.database().ref(`/threads/${this.props.match.params.tid}`).on("value", (snapshot) => {
+            if (snapshot.val() === null) {
+                this.setState({ currentThread: null });
+            } 
+            else {
+                this.setState({ currentThread: snapshot.val() });
+            }
+        });
     }
 
     render() {
@@ -29,7 +43,7 @@ class Settings extends Component {
             <div className="App">
                 <h1 className="App-title" onClick={() => window.location.href="/home"}>Webbit</h1>
                 <div className="App-topbar">
-                    <h1 className="App-title" onClick={() => window.open("https://github.com/devyboy/websec-reddit")}>Webbit</h1>
+                    <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
                     {this.props.userObject 
                         ? 
                         <div className="App-settings">
@@ -48,7 +62,13 @@ class Settings extends Component {
                     }
                 </div>
                 <div className="App-header">
-                    <h1>Testing</h1>
+                    {this.state.currentThread === null && <ReactLoading type={"spin"} color={"white"} height={150} width={150} />}
+                    <div>
+                        <h1>{this.state.currentThread.title}</h1>
+                        <h3>{this.state.currentThread.author}</h3>
+                        <TimeAgo live={false} date={new Date(this.state.currentThread.date * 1000)} />
+                        <h2>{this.state.currentThread.content}</h2>
+                    </div>
                 </div>
             </div>
         );
