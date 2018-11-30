@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+import { type } from "os";
 
 class Thread extends Component {
     constructor(props) {
         super(props);
         this.state = {
             upVoted: false,
-            downVoted: false,
-            originalUpvote: null,
+            downVoted: false
         };
+        let comments = this.props.thread[1].comments;
+        console.log(comments.numComments);
     }
 
     downVote() {
@@ -44,7 +46,8 @@ class Thread extends Component {
                 <div className="thread-text">
                     <div className="thread-title">{this.props.title}</div>
                     <div className="thread-author" style={{fontSize: 15}}>Posted by: {this.props.author}</div>
-                    <div classname="thread-content" style={{fontSize: 20}}>{this.props.content}</div>
+                    <div className="comments">{this.props.comments}</div>
+                    {/*<div classname="thread-content" style={{fontSize: 20}}>{this.props.content}</div>*/}
                 </div>
             </div>
         );
