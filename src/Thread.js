@@ -38,7 +38,8 @@ class Thread extends Component {
                 </div>
                 <div className="thread-text">
                     <div className="thread-title">{this.props.title}</div>
-                    <div className="thread-author">Posted by: {this.props.author}</div>
+                    <div className="thread-author" style={{fontSize: 15}}>Posted by: {this.props.author}</div>
+                    <div classname="thread-content" style={{fontSize: 20}}>{this.props.content}</div>
                 </div>
             </div>
         );
