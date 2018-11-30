@@ -8,16 +8,20 @@ class Thread extends Component {
     }
 
     downVote() {
-        return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 1 });
+        if (this.props.userObject) {
+            return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 1 });
+        }
     }
 
     upVote() {
-        return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes + 1 });
+        if (this.props.userObject) {
+            return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes + 1 });
+        }
     }
 
     render() {
         return(
-            <div className="thread-object" key={this.props.key}>
+            <div className="thread-object">
                 <div className="thread-upvote-container">
                     <div onClick={this.upVote.bind(this)} className="upvote">
                         ↑

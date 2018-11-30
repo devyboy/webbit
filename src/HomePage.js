@@ -4,7 +4,6 @@ import './App.css';
 import { Link } from "react-router-dom";
 import Thread from './Thread';
 import NewThread from "./NewThread";
-import Loading from "./loading.svg";
 import ReactLoading from 'react-loading';
 import { Modal } from 'react-bootstrap';
 
@@ -47,7 +46,7 @@ class HomePage extends Component {
         </div>
       );
     }
-    
+
     if (this.state.threads) {
       this.state.threads.sort().reverse(); // Order threads from latest to oldest
     }
@@ -89,6 +88,7 @@ class HomePage extends Component {
                 return(
                   <Thread
                     key={key}
+                    userObject={this.props.userObject}
                     title={thread[1].title}
                     content={thread[1].content}
                     author={thread[1].author}
