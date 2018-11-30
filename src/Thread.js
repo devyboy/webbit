@@ -7,21 +7,26 @@ class Thread extends Component {
         this.state = {
             upVoted: false,
             downVoted: false,
+            originalUpvote: null,
         };
     }
 
     downVote() {
         if (this.props.userObject && !this.state.downVoted) {
             this.setState({downVoted: true, upVoted: false});
-            return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 1 });
+            return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.state.originalUpvote - 1 });
         }
     }
 
     upVote() {
         if (this.props.userObject && !this.state.upVoted) {
             this.setState({upVoted: true, downVoted: false});
-            return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes + 1 });
+            return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.state.originalUpvote + 1 });
         }
+    }
+
+    componentDidMount() {
+        this.setState({ originalUpvote: this.props.upvotes });
     }
 
     render() {
