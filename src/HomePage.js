@@ -105,7 +105,7 @@ class HomePage extends Component {
           </header>
           <div className="App-bottombar">
             <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
-              Built by <a href="https://github.com/devyboy">Dev</a>, <a href="https://github.com/mbillone">Matt</a>, and <a href="https://github.com/vgutta">Vineeth</a>
+              Made by <a href="https://github.com/devyboy" target="_blank">Dev</a>, <a href="https://github.com/mbillone" target="_blank">Matt</a>, and <a href="https://github.com/vgutta" target="_blank">Vineeth</a>
             </p>
           </div>
         </div>
