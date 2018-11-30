@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import { Redirect } from "react-router-dom";
 import './App.css';
-import ReactLoading from "react-loading";
-import { throws } from "assert";
 import { Modal, Button } from "react-bootstrap";
 
 class NewThread extends Component {
