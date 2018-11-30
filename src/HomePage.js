@@ -67,6 +67,7 @@ class HomePage extends Component {
               </div>
               :
               <div className="App-settings">
+                <div className="account-name" >Login to enable submissions and voting!</div>
                 <Link className="sign-in" to="/login">
                   Login
                 </Link>
