@@ -26,7 +26,7 @@ class NewThread extends Component {
         let data = 
         {
             "author" : user,
-            "comments" : {},
+            "comments" : {"numComments": 0},
             "content" : this.state.content,
             "title" : this.state.title,
             "upvotes" : 1,
