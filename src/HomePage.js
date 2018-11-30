@@ -26,6 +26,7 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+    //firebase.auth().signOut();
     firebase.database().ref("/threads/").on('value', (snapshot) => {
       if (snapshot.val() !== null) {
         this.setState({ threads: Object.entries(snapshot.val()) });
@@ -50,7 +51,7 @@ class HomePage extends Component {
     if (this.state.threads) {
       this.state.threads.sort().reverse(); // Order threads from latest to oldest
     }
-
+    
     return(
         <div className="App">
           <div className="App-topbar">
@@ -58,7 +59,7 @@ class HomePage extends Component {
             {this.props.userObject 
               ? 
               <div className="App-settings">
-                <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
+                <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
                 <div className="new-post" onClick={() => this.setState({ open: true })}>New Post</div>
                 <div className="sign-out" onClick={() => firebase.auth().signOut()}>
                   Logout

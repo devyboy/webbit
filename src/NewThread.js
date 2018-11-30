@@ -21,7 +21,7 @@ class NewThread extends Component {
     }
 
     publishThread() {
-        let user = this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
+        let user = this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
         let date = Math.round((new Date()).getTime() / 1000);
         let data = 
         {
