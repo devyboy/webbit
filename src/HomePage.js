@@ -103,6 +103,11 @@ class HomePage extends Component {
             }
             {this.state.threads === null && <ReactLoading type={"spin"} color={"white"} height={150} width={150} />}
           </header>
+          <div className="App-bottombar">
+            <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
+              Made by <a href="https://github.com/devyboy" target="_blank">Dev</a>, <a href="https://github.com/mbillone" target="_blank">Matt</a>, and <a href="https://github.com/vgutta" target="_blank">Vineeth</a>
+            </p>
+          </div>
         </div>
     );
   }
