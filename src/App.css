@@ -15,18 +15,27 @@
 
 .App-title {
   float: left;
-  position: absolute;
   color: white;
-  margin: .75em;
   cursor: pointer;
+  margin-top: 0;
+  padding: 1em;
+  position: fixed;
 }
 
 .App-settings {
-  right: 0;
-  position: absolute;
+  float: right;
   color: white;
   display: flex;
   justify-content: space-between;
+  padding: 1em;
+}
+
+.App-topbar {
+  width: 100%;
+  height: 100px;
+  background-color: #282c34;
+  position: fixed;
+
 }
 
 .sign-out {
@@ -72,6 +81,8 @@
 
 .sign-in:hover {
   background-color: #208537;
+  text-decoration: none;
+  color: white;
 }
 
 .App-title:hover {
@@ -148,4 +159,45 @@ input[type='checkbox'] {
   padding: .5em;
   background-color: #3d4148;
   color: white;
+}
+
+.thread-object {
+  background-color: #3d4148;
+  text-align: left;
+  border-radius: 7px;
+  padding: .5em;
+  margin: .5em;
+  height: 100px;
+}
+
+.thread-holder {
+  width: 50%;
+  align-content: flex-start;
+  margin-top: 100px;
+}
+
+.thread-author {
+  font-size: 20px;
+}
+
+.thread-text {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.thread-upvote-container {
+  display: inline-block;
+  height: 90px;
+  vertical-align: super;
+  margin-right: 1em;
+}
+
+.upvote {
+  font-size: 15px;
+  color: red;
+}
+
+.downvote {
+  font-size: 15px;
+  color: blue;
 }
