@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #333842;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,6 @@
   height: 100px;
   background-color: #282c34;
   position: fixed;
-
 }
 
 .sign-out {
@@ -162,7 +161,7 @@ input[type='checkbox'] {
 }
 
 .thread-object {
-  background-color: #3d4148;
+  background-color: #3e4451;
   text-align: left;
   border-radius: 7px;
   padding: .5em;
@@ -188,7 +187,9 @@ input[type='checkbox'] {
 .thread-upvote-container {
   display: inline-block;
   height: 90px;
+  text-align: center;
   vertical-align: super;
+  width: 35px;
   margin-right: 1em;
 }
 
