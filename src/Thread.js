@@ -9,8 +9,6 @@ class Thread extends Component {
             upVoted: false,
             downVoted: false
         };
-        let comments = this.props.thread[1].comments;
-        console.log(comments.numComments);
     }
 
     downVote() {
@@ -46,7 +44,7 @@ class Thread extends Component {
                 <div className="thread-text">
                     <div className="thread-title">{this.props.title}</div>
                     <div className="thread-author" style={{fontSize: 15}}>Posted by: {this.props.author}</div>
-                    <div className="comments">{this.props.comments}</div>
+                    <div className="comments" style={{fontSize: 15}}>{this.props.thread[1].comments.numComments} Comments</div>
                     {/*<div classname="thread-content" style={{fontSize: 20}}>{this.props.content}</div>*/}
                 </div>
             </div>
