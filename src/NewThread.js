@@ -25,13 +25,15 @@ class NewThread extends Component {
 
     publishThread() {
         let user = this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
+        let date = Math.round((new Date()).getTime() / 1000);
         let data = 
         {
             "author" : user,
             "comments" : {},
             "content" : this.state.content,
             "title" : this.state.title,
-            "upvotes" : 1
+            "upvotes" : 1,
+            "date": date,
         }
 
         let newKey = firebase.database().ref().child('/threads/').push().key;
