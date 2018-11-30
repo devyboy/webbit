@@ -176,10 +176,10 @@ input[type='checkbox'] {
   height: 100px;
 }
 
+
 .thread-holder {
   width: 50%;
   align-content: flex-start;
-  margin-top: 100px;
 }
 
 .thread-author {
@@ -189,6 +189,23 @@ input[type='checkbox'] {
 .thread-text {
   display: inline-block;
   vertical-align: top;
+  color: white;
+  text-decoration: none;
+}
+
+.thread-text:hover {
+  color: white;
+  text-decoration: none;
+  cursor: default;
+}
+
+.thread-text:hover .thread-title {
+  color: white;
+  cursor: pointer;
+}
+
+.thread-object:hover {
+  background-color: #282c34;
 }
 
 .thread-upvote-container {
@@ -203,9 +220,12 @@ input[type='checkbox'] {
 .upvote {
   font-size: 15px;
   color: red;
+  cursor: pointer;
 }
 
 .downvote {
   font-size: 15px;
   color: blue;
+  cursor: pointer;
+
 }
