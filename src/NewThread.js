@@ -3,6 +3,8 @@ import firebase from "firebase";
 import { Redirect } from "react-router-dom";
 import './App.css';
 import ReactLoading from "react-loading";
+import { throws } from "assert";
+import { Modal, Button } from "react-bootstrap";
 
 class NewThread extends Component {
     constructor(props) {
@@ -22,9 +24,10 @@ class NewThread extends Component {
     }
 
     publishThread() {
+        let user = this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
         let data = 
         {
-            "author" : "Devon",
+            "author" : user,
             "comments" : {},
             "content" : this.state.content,
             "title" : this.state.title,
@@ -34,41 +37,23 @@ class NewThread extends Component {
         let newKey = firebase.database().ref().child('/threads/').push().key;
         let updates = {};
         updates["/threads/" + newKey] = data;
-        
+        this.props.closeModal();
         return firebase.database().ref().update(updates);
     }
 
     render() {
-        if (this.props.userObject === null) {
-            return <Redirect to="/home" />
-        }
-        
-        if (this.props.userObject === false) {
-            return(
-                <div className="App">
-                    <div className="App-header">
-                        <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
-                    </div>
-                </div>
-            );
-        }
-
-        return(
-            <div className="App">
-                <h1 className="App-title" onClick={() => window.location.href="/home"}>Webbit</h1>
-                <div className="App-header">
-                    <h2>New Thread</h2>
-                    <textarea className={"content-input"} value={this.state.title} onChange={this.handleTitleChange.bind(this)} placeholder="Title" cols="50" rows="1">
+        return( 
+            <div>
+                <Modal.Body style={{ backgroundColor: "#3d4148" }} >
+                    <textarea className={"content-input"} value={this.state.title} onChange={this.handleTitleChange.bind(this)} placeholder="Title" cols="58" rows="1">
                     </textarea>
-                    <textarea className={"content-input"} value={this.state.content} onChange={this.handleContentChange.bind(this)} placeholder="Content" cols="50" rows="10">
+                    <textarea className={"content-input"} value={this.state.content} onChange={this.handleContentChange.bind(this)} placeholder="Content" cols="58" rows="10">
                     </textarea>
-                    <div
-                        className="button"
-                        onClick={this.publishThread.bind(this)}
-                    >
-                        Post
-                    </div>
-                </div>
+                </Modal.Body>
+                <Modal.Footer style={{ backgroundColor: "#3d4148" }} >
+                    <Button onClick={this.props.closeModal} style={{ marginRight: '.5em'}} bsSize="large">Close</Button>
+                    <Button onClick={this.publishThread.bind(this)} bsSize="large" bsStyle="success">Post</Button>
+                </Modal.Footer>
             </div>
         );
     }

@@ -6,7 +6,6 @@ import HomePage from "./HomePage";
 import Settings from "./Settings";
 import Thread from "./Thread";
 import FourOhFour from "./FourOhFour";
-import NewThread from "./NewThread";
 import './App.css';
 
 var config = {
@@ -39,7 +38,6 @@ class App extends Component {
                         <Route exact path="/" render={(props) => <HomePage {...props} userObject={this.state.userObject} />} />
                         <Route exact path="/home" render={(props) => <HomePage {...props} userObject={this.state.userObject} />} />
                         <Route exact path="/home/:tid" render={(props) => <Thread {...props} userObject={this.state.userObject} />} />
-                        <Route path="/new" render={(props) => <NewThread {...props} userObject={this.state.userObject} />} />
                         <Route path="/login" render={(props) => <Login {...props} userObject={this.state.userObject} />} />
                         <Route path="/settings/" render={(props) => <Settings {...props} userObject={this.state.userObject} />} />
                         <Route component={FourOhFour} />
