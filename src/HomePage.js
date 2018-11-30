@@ -96,6 +96,7 @@ class HomePage extends Component {
                     content={thread[1].content}
                     author={thread[1].author}
                     upvotes={thread[1].upvotes}
+                    date={thread[1].date}
                     id={thread[0]}
                   />
                 );
