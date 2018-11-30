@@ -6,6 +6,7 @@ import {
   } from "react-router-dom";
 import ReactLoading from "react-loading";
 
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +23,7 @@ class Login extends Component {
       
     signIn(user, pass) {
         firebase.auth().signInWithEmailAndPassword(user, pass).then(() => {
-            return <Redirect to={"/"} />;
+            return this.props.history.goBack();
         }, (error) => {
             this.setState({ error: error.message, color: "red" });
         });
@@ -31,6 +32,7 @@ class Login extends Component {
     register(user, pass) {
         firebase.auth().createUserWithEmailAndPassword(user, pass).then(() => {
             this.state.checked && firebase.auth().currentUser.sendEmailVerification();
+            return this.props.history.goBack();
         }, (error) => {
             this.setState({ error: error.message, color: "red" });
         });
@@ -41,6 +43,7 @@ class Login extends Component {
         firebase.auth().signInWithPopup(provider).then((result) => {
             this.setState({ userObject: result.user, error: "" });
             firebase.auth().currentUser.sendEmailVerification();
+            return this.props.history.goBack();
         }).catch((error) => {
             alert(error.message);
         });
@@ -50,6 +53,7 @@ class Login extends Component {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider).then((result) => {
             this.setState({ userObject: result.user, error: "" });
+            return this.props.history.goBack();
         }).catch((error) => {
             alert(error.message);
         });
@@ -59,6 +63,7 @@ class Login extends Component {
         var provider = new firebase.auth.TwitterAuthProvider();
         firebase.auth().signInWithPopup(provider).then((result) => {
             this.setState({ userObject: result.additionalUserInfo, error: "" });
+            return this.props.history.goBack();
         }).catch((error) => {
             alert(error.message);
         });

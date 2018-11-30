@@ -175,6 +175,9 @@ input[type='checkbox'] {
   padding: .5em;
   margin: .5em;
   height: 100px;
+  border-style: solid;
+  border-color: #3e4451;
+  border-width: 1px;
 }
 
 
@@ -199,7 +202,7 @@ input[type='checkbox'] {
 .thread-text:hover {
   color: white;
   text-decoration: none;
-  cursor: default;
+  
 }
 
 .thread-text:hover .thread-title {
@@ -208,7 +211,10 @@ input[type='checkbox'] {
 }
 
 .thread-object:hover {
-  background-color: #282c34;
+  /* background-color: #282c34; */
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
 }
 
 .thread-upvote-container {
