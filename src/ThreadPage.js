@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import {
-    Link,
+    Link, Redirect
   } from "react-router-dom";
 import ReactLoading from "react-loading";
+import { confirmAlert } from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css'
 import TimeAgo from 'react-timeago'
 import './App.css';
 import Upvote from "./upvote.png";
@@ -16,9 +18,9 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentThread: false
+            currentThread: false,
+            deleted: false
         };
-        //let displayName = this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
     }
 
     componentDidMount() {
@@ -33,7 +35,27 @@ class Settings extends Component {
     }
 
     deleteThread() {
+        firebase.database().ref(`/threads/${this.props.match.params.tid}`).remove();
+        this.setState({deleted: true});
+    }
 
+    confirmDelete() {
+        console.log("Hello?");
+        confirmAlert({
+            title: 'Confirm to delete this thread',
+            message: 'Hope you know what you are doing',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => this.deleteThread(),
+                style: {background: "#f76133"}
+              },
+              {
+                label: 'No',
+                onClick: () => null
+              }
+            ]
+        })
     }
 
     render() {
@@ -48,6 +70,12 @@ class Settings extends Component {
             );
         }
 
+        if (this.state.deleted == true) {
+            return(
+                <Redirect to={"/home"} />
+            );
+        }
+
         return (
             <div className="App">
                 <div className="App-topbar">
@@ -58,7 +86,7 @@ class Settings extends Component {
                             <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
                             {this.state.currentThread.author == this.props.userObject.displayName  || this.state.currentThread.author == this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))
                                 ?
-                                <div className="new-thread" onClick={() => this.deleteThread.bind(this)}>
+                                <div className="delete-thread" onClick={() => this.confirmDelete()}>
                                     Delete Thread
                                 </div>
                                 :
