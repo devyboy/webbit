@@ -52,7 +52,7 @@ class Thread extends Component {
                         <img src={this.state.upVoted ? Upvote : UpvoteGrey} style={{height: 15}} />
                     </div>
                     {this.props.upvotes}
-                    <div onClick={this.downVote.bind(this)}className="downvote">
+                    <div onClick={this.downVote.bind(this)} className="downvote">
                         <img src={this.state.downVoted ? Downvote : DownvoteGrey} style={{height: 15}} />
                     </div>
                 </div>

@@ -35,6 +35,7 @@
   height: 100px;
   background-color: #282c34;
   position: fixed;
+  z-index: 100;
 }
 
 .App-bottombar {
@@ -237,4 +238,28 @@ input[type='checkbox'] {
   color: blue;
   cursor: pointer;
 
+}
+
+.thread-page-container {
+  position: relative;
+  z-index: 10;
+  top: 0;
+  text-align: left;
+  left: 0;
+  margin: 150px;
+  margin-bottom: 100px;
+}
+
+.thread-page-title {
+  font-size: 1.75em;
+
+}
+
+.thread-page-author {
+  font-size: .6em;
+  color: rgb(177, 177, 177);
+}
+
+.thread-page-content {
+  font-size: .7em;
 }
