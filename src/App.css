@@ -258,12 +258,13 @@ input[type='checkbox'] {
 }
 
 .thread-page-container {
-  position: relative;
+  position: absolute;
   z-index: 10;
   top: 0;
   text-align: left;
-  left: 0;
-  margin: 150px;
+  padding-left: 150px;
+  padding-right: 150px;
+  margin-top: 150px;
   margin-bottom: 100px;
 }
 
