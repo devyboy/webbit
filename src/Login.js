@@ -102,7 +102,9 @@ class Login extends Component {
         }
         return(
             <div className="App">
-                <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
+                <div className="App-topbar">
+                    <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
+                </div>
                 <header className="App-header">
                     <h2> If you have an account, sign in. <br /> If not, register one! </h2>
                     <form className="form">

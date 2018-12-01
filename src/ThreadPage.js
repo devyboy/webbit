@@ -4,9 +4,8 @@ import {
     Link, Redirect
   } from "react-router-dom";
 import ReactLoading from "react-loading";
-import { confirmAlert } from "react-confirm-alert";
-import 'react-confirm-alert/src/react-confirm-alert.css'
 import TimeAgo from 'react-timeago'
+import { Modal, Button } from 'react-bootstrap';
 import './App.css';
 import Upvote from "./upvote.png";
 import Downvote from "./downvote.png";
@@ -19,7 +18,8 @@ class Settings extends Component {
         super(props);
         this.state = {
             currentThread: false,
-            deleted: false
+            showDelete: false,
+            deleted: false,
         };
     }
 
@@ -36,26 +36,7 @@ class Settings extends Component {
 
     deleteThread() {
         firebase.database().ref(`/threads/${this.props.match.params.tid}`).remove();
-        this.setState({deleted: true});
-    }
-
-    confirmDelete() {
-        console.log("Hello?");
-        confirmAlert({
-            title: 'Confirm to delete this thread',
-            message: 'Hope you know what you are doing',
-            buttons: [
-              {
-                label: 'Yes',
-                onClick: () => this.deleteThread(),
-                style: {background: "#f76133"}
-              },
-              {
-                label: 'No',
-                onClick: () => null
-              }
-            ]
-        })
+        this.setState({ deleted: true });
     }
 
     render() {
@@ -70,10 +51,8 @@ class Settings extends Component {
             );
         }
 
-        if (this.state.deleted == true) {
-            return(
-                <Redirect to={"/home"} />
-            );
+        if (this.state.deleted) {
+            return(<Redirect to="/home" />);
         }
 
         return (
@@ -86,7 +65,7 @@ class Settings extends Component {
                             <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
                             {this.state.currentThread.author == this.props.userObject.displayName  || this.state.currentThread.author == this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))
                                 ?
-                                <div className="delete-thread" onClick={() => this.confirmDelete()}>
+                                <div className="delete-thread" onClick={() => this.setState({ showDelete: true })}>
                                     Delete Thread
                                 </div>
                                 :
@@ -107,6 +86,20 @@ class Settings extends Component {
                     }
                 </div>
                 <div className="App-header">
+                    <Modal style={{ color: "white" }} show={this.state.showDelete} onHide={() => this.setState({ showDelete: false })}>
+                        <Modal.Header style={{ backgroundColor: "#3d4148" }} >
+                        <Modal.Title style={{fontSize: "2em"}}>
+                            Delete thread?
+                        </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body style={{ backgroundColor: "#3d4148" }} >
+                            <h4>Are you sure you want to delete this thread? You can't undo this action.</h4>
+                        </Modal.Body>
+                        <Modal.Footer style={{ backgroundColor: "#3d4148" }} >
+                            <Button onClick={() => this.setState({ showDelete: false })} style={{ marginRight: '.5em'}} bsSize="large">Close</Button>
+                            <Button onClick={this.deleteThread.bind(this)} bsSize="large" bsStyle="danger">Delete</Button>
+                        </Modal.Footer>
+                    </Modal>
                     {this.state.currentThread === null && 
                         <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
                     }

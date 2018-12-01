@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import './App.css';
+import firebase from "firebase";
 import {
     Redirect,
+    Link
   } from "react-router-dom";
 import ReactLoading from "react-loading";
+import './App.css';
+
 
 class Settings extends Component {
     constructor(props) {
@@ -32,9 +35,26 @@ class Settings extends Component {
 
         return (
             <div className="App">
-                <h1 className="App-title" onClick={() => window.location.href="/home"}>Webbit</h1>
-                <div className="App-header">
-                    <h1>Testing</h1>
+                <div className="App-topbar">
+                    <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
+                    {this.props.userObject 
+                        ? 
+                        <div className="App-settings">
+                            <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
+                            <div className="sign-out" onClick={() => firebase.auth().signOut()}>
+                                Logout
+                            </div>
+                        </div>
+                        :
+                        <div className="App-settings">
+                            <div className="account-name" >Login to enable submissions and voting!</div>
+                            <Link className="sign-in" to="/login">
+                                Login
+                            </Link>
+                        </div>
+                    }
+                </div>                <div className="App-header">
+                    <h1>Yeet</h1>
                 </div>
             </div>
         );
