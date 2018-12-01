@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Thread from './Thread';
 import NewThread from "./NewThread";
 import ReactLoading from 'react-loading';
-import { Modal } from 'react-bootstrap';
+import { Modal, Glyphicon, Button } from 'react-bootstrap';
 
 
 class HomePage extends Component {
@@ -59,17 +59,22 @@ class HomePage extends Component {
             {this.props.userObject 
               ? 
               <div className="App-settings">
-                <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
-                <div className="new-thread" onClick={() => this.setState({ open: true })}>New Thread</div>
+                <div className="account-name"> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</div>
+                <div className="new-thread" onClick={() => this.setState({ open: true })}>
+                  <Glyphicon glyph="plus" />
+                </div>
+                <Link className="settings" to="/settings">
+                  <Glyphicon glyph="cog" />
+                </Link>
                 <div className="sign-out" onClick={() => firebase.auth().signOut()}>
-                  Logout
+                  <Glyphicon glyph="log-out" />
                 </div>
               </div>
               :
               <div className="App-settings">
                 <div className="account-name" >Login to enable submissions and voting!</div>
                 <Link className="sign-in" to="/login">
-                  Login
+                  <Glyphicon glyph="log-in" />
                 </Link>
               </div>
             }

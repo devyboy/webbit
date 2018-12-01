@@ -5,7 +5,7 @@ import {
   } from "react-router-dom";
 import ReactLoading from "react-loading";
 import TimeAgo from 'react-timeago'
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Glyphicon } from 'react-bootstrap';
 import './App.css';
 import Upvote from "./upvote.png";
 import Downvote from "./downvote.png";
@@ -66,21 +66,23 @@ class Settings extends Component {
                             {this.state.currentThread.author == this.props.userObject.displayName  || this.state.currentThread.author == this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))
                                 ?
                                 <div className="delete-thread" onClick={() => this.setState({ showDelete: true })}>
-                                    Delete Thread
+                                    <Glyphicon glyph="trash" />
                                 </div>
                                 :
                                 <div></div> // placeholder since js expects code
                             }
-                            
+                            <Link className="settings" to="/settings">
+                                <Glyphicon glyph="cog" />
+                            </Link>
                             <div className="sign-out" onClick={() => firebase.auth().signOut()}>
-                                Logout
+                                <Glyphicon glyph="log-out" />
                             </div>
                         </div>
                         :
                         <div className="App-settings">
                             <div className="account-name" >Login to enable submissions and voting!</div>
                             <Link className="sign-in" to="/login">
-                                Login
+                                <Glyphicon glyph="log-in" />
                             </Link>
                         </div>
                     }
