@@ -6,6 +6,10 @@ import {
 import ReactLoading from "react-loading";
 import TimeAgo from 'react-timeago'
 import './App.css';
+import Upvote from "./upvote.png";
+import Downvote from "./downvote.png";
+import DownvoteGrey from "./downvotegrey.png";
+import UpvoteGrey from "./upvotegrey.png";
 
 
 class Settings extends Component {
@@ -41,7 +45,6 @@ class Settings extends Component {
 
         return (
             <div className="App">
-                <h1 className="App-title" onClick={() => window.location.href="/home"}>Webbit</h1>
                 <div className="App-topbar">
                     <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
                     {this.props.userObject 
@@ -62,12 +65,32 @@ class Settings extends Component {
                     }
                 </div>
                 <div className="App-header">
-                    {this.state.currentThread === null && <ReactLoading type={"spin"} color={"white"} height={150} width={150} />}
-                    <div>
-                        <h1>{this.state.currentThread.title}</h1>
-                        <h3>{this.state.currentThread.author}</h3>
-                        <TimeAgo live={false} date={new Date(this.state.currentThread.date * 1000)} />
-                        <h2>{this.state.currentThread.content}</h2>
+                    {this.state.currentThread === null && 
+                        <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
+                    }
+                    <div className="thread-page-container">
+                        <div className="thread-page-title">
+                            {this.state.currentThread.title}
+                            {/* <div style={{ display: "inline-block", marginLeft: '.75em', verticalAlign: "middle" }}>
+                                <div onClick={this.upVote.bind(this)} className="upvote">
+                                    <img src={this.state.upVoted ? Upvote : UpvoteGrey} style={{height: 15}} />
+                                </div>
+                                <div style={{ fontSize: ".45em" }}>{console.log(this.state.currentThread.upvotes)}</div>
+                                <div onClick={this.downVote.bind(this)} className="downvote">
+                                    <img src={this.state.downVoted ? Downvote : DownvoteGrey} style={{height: 15}} />
+                                </div>
+                            </div> */}
+                        </div>
+                        <div className="thread-page-author">
+                            {this.state.currentThread &&
+                                <div>
+                                    Posted by {this.state.currentThread.author + " "}
+                                    <TimeAgo live={false} date={new Date(this.state.currentThread.date * 1000)} />
+                                </div>
+                            }
+                        </div>
+                        <hr />
+                        <div className="thread-page-content">{this.state.currentThread.content}</div>
                     </div>
                 </div>
             </div>
