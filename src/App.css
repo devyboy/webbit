@@ -142,8 +142,25 @@ input {
   text-decoration: none;
 }
 
-.new-post:hover {
+.new-thread:hover {
   background-color: #287cc5; 
+}
+
+.delete-thread {
+  margin: 1.5em;
+  margin-right: 0em;
+  background-color: #f76133;
+  color: white;
+  padding: .5em;
+  padding-top: .45em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.15em;
+  text-decoration: none;
+}
+
+.delete-thread:hover {
+  background-color: #c55528; 
 }
 
 .third-party {
