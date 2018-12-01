@@ -60,7 +60,7 @@ class HomePage extends Component {
               ? 
               <div className="App-settings">
                 <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
-                <div className="new-post" onClick={() => this.setState({ open: true })}>New Post</div>
+                <div className="new-thread" onClick={() => this.setState({ open: true })}>New Thread</div>
                 <div className="sign-out" onClick={() => firebase.auth().signOut()}>
                   Logout
                 </div>
@@ -109,7 +109,7 @@ class HomePage extends Component {
           </header>
           <div className="App-bottombar">
             <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
-              Made by <a href="https://github.com/devyboy" target="_blank">Dev</a>, <a href="https://github.com/mbillone" target="_blank">Matt</a>, and <a href="https://github.com/vgutta" target="_blank">Vineeth</a>
+              Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
             </p>
           </div>
         </div>
