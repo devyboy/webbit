@@ -16,8 +16,9 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentThread: false,
+            currentThread: false
         };
+        //let displayName = this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
     }
 
     componentDidMount() {
@@ -29,6 +30,10 @@ class Settings extends Component {
                 this.setState({ currentThread: snapshot.val() });
             }
         });
+    }
+
+    deleteThread() {
+
     }
 
     render() {
@@ -51,6 +56,15 @@ class Settings extends Component {
                         ? 
                         <div className="App-settings">
                             <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
+                            {this.state.currentThread.author == this.props.userObject.displayName  || this.state.currentThread.author == this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))
+                                ?
+                                <div className="new-thread" onClick={() => this.deleteThread.bind(this)}>
+                                    Delete Thread
+                                </div>
+                                :
+                                <div></div> // placeholder since js expects code
+                            }
+                            
                             <div className="sign-out" onClick={() => firebase.auth().signOut()}>
                                 Logout
                             </div>
