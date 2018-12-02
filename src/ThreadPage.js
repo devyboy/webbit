@@ -46,7 +46,7 @@ class Settings extends Component {
         {
             "author" : user,
             "content" : "comment content 2",
-            "upvotes" : 420,
+            "upvotes" : 1,
             "date": date,
         }
 
@@ -167,6 +167,11 @@ class Settings extends Component {
                             })}
                         </div>
                     </div>
+                </div>
+                <div className="App-bottombar">
+                    <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
+                    Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
+                     </p>
                 </div>
             </div>
         );
