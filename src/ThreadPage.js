@@ -120,7 +120,7 @@ class Settings extends Component {
                         </div>
                     }
                 </div>
-                <div className="App-header">
+                <header className="App-header">
                     <Modal style={{ color: "white" }} show={this.state.showDelete} onHide={() => this.setState({ showDelete: false })}>
                         <Modal.Header style={{ backgroundColor: "#3d4148" }} >
                         <Modal.Title style={{fontSize: "2em"}}>
@@ -202,7 +202,7 @@ class Settings extends Component {
                         }
                         
                     </div>
-                </div>
+                </header>
                 <div className="App-bottombar">
                     <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
                     Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
