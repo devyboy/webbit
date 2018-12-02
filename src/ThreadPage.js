@@ -137,94 +137,58 @@ class Settings extends Component {
                     {this.state.currentThread === null && 
                         <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
                     }
-                    {this.props.userObject
-                        ?
-                        <div className="thread-page-container">
-                            <div className="thread-page-title">
-                                {this.state.currentThread.title}
-                                {/* <div style={{ display: "inline-block", marginLeft: '.75em', verticalAlign: "middle" }}>
-                                    <div onClick={this.upVote.bind(this)} className="upvote">
-                                        <img src={this.state.upVoted ? Upvote : UpvoteGrey} style={{height: 15}} />
-                                    </div>
-                                    <div style={{ fontSize: ".45em" }}>{console.log(this.state.currentThread.upvotes)}</div>
-                                    <div onClick={this.downVote.bind(this)} className="downvote">
-                                        <img src={this.state.downVoted ? Downvote : DownvoteGrey} style={{height: 15}} />
-                                    </div>
-                                </div> */}
-                            </div>
-                            <div className="thread-page-author">
-                                {this.state.currentThread &&
+                    
+                    <div className="thread-page-container">
+                        <div className="thread-page-title">
+                            {this.state.currentThread.title}
+                            {/* <div style={{ display: "inline-block", marginLeft: '.75em', verticalAlign: "middle" }}>
+                                <div onClick={this.upVote.bind(this)} className="upvote">
+                                    <img src={this.state.upVoted ? Upvote : UpvoteGrey} style={{height: 15}} />
+                                </div>
+                                <div style={{ fontSize: ".45em" }}>{console.log(this.state.currentThread.upvotes)}</div>
+                                <div onClick={this.downVote.bind(this)} className="downvote">
+                                    <img src={this.state.downVoted ? Downvote : DownvoteGrey} style={{height: 15}} />
+                                </div>
+                            </div> */}
+                        </div>
+                        <div className="thread-page-author">
+                            {this.state.currentThread &&
+                                <div>
+                                    Posted by {this.state.currentThread.author + " "}
+                                    <TimeAgo live={false} date={new Date(this.state.currentThread.date * 1000)} />
+                                </div>
+                            }
+                        </div>
+                        <hr />
+                        <div className="thread-page-content">{this.state.currentThread.content}</div>
+                        <hr />
+                        <div className="thread-page-comments">
+                            {comments.map((comment) => {
+                                return (
                                     <div>
-                                        Posted by {this.state.currentThread.author + " "}
-                                        <TimeAgo live={false} date={new Date(this.state.currentThread.date * 1000)} />
+                                        <p>content: {comment.content}</p>
+                                        <p>author: {comment.author}</p>
+                                        <p>date: {comment.date}</p>
+                                        <p>upvotes: {comment.upvotes}</p>
+                                        <hr />
                                     </div>
-                                }
-                            </div>
-                            <hr />
-                            <div className="thread-page-content">{this.state.currentThread.content}</div>
-                            <hr />
-                            <div className="thread-page-comments">
-                                {comments.map((comment) => {
-                                    return (
-                                        <div>
-                                            <p>content: {comment.content}</p>
-                                            <p>author: {comment.author}</p>
-                                            <p>date: {comment.date}</p>
-                                            <p>upvotes: {comment.upvotes}</p>
-                                            <hr />
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                            
+                                );
+                            })}
+                        </div>
+
+                        {this.props.userObject
+                            ?
                             <form onSubmit={this.handleSubmit.bind(this)}>
                                 <label>
                                     <input style={{color: "black"}} value={this.state.comment} onChange={this.handleChange.bind(this)} placeholder="Comment here" />
                                 </label>
                                 <input style={{color: "black"}} type="submit" value="Submit" />
                             </form>
-                            
-                        </div>
-                        :
-                        <div className="thread-page-container">
-                            <div className="thread-page-title">
-                                {this.state.currentThread.title}
-                                {/* <div style={{ display: "inline-block", marginLeft: '.75em', verticalAlign: "middle" }}>
-                                    <div onClick={this.upVote.bind(this)} className="upvote">
-                                        <img src={this.state.upVoted ? Upvote : UpvoteGrey} style={{height: 15}} />
-                                    </div>
-                                    <div style={{ fontSize: ".45em" }}>{console.log(this.state.currentThread.upvotes)}</div>
-                                    <div onClick={this.downVote.bind(this)} className="downvote">
-                                        <img src={this.state.downVoted ? Downvote : DownvoteGrey} style={{height: 15}} />
-                                    </div>
-                                </div> */}
-                            </div>
-                            <div className="thread-page-author">
-                                {this.state.currentThread &&
-                                    <div>
-                                        Posted by {this.state.currentThread.author + " "}
-                                        <TimeAgo live={false} date={new Date(this.state.currentThread.date * 1000)} />
-                                    </div>
-                                }
-                            </div>
-                            <hr />
-                            <div className="thread-page-content">{this.state.currentThread.content}</div>
-                            <hr />
-                            <div className="thread-page-comments">
-                                {comments.map((comment) => {
-                                    return (
-                                        <div>
-                                            <p>content: {comment.content}</p>
-                                            <p>author: {comment.author}</p>
-                                            <p>date: {comment.date}</p>
-                                            <p>upvotes: {comment.upvotes}</p>
-                                            <hr />
-                                        </div>
-                                    );
-                                })}
-                            </div>   
-                        </div>
-                    }
+                            :
+                            <div></div>
+                        }
+                        
+                    </div>
                 </div>
                 <div className="App-bottombar">
                     <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
