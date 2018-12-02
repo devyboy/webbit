@@ -39,6 +39,23 @@ class Settings extends Component {
         this.setState({ deleted: true });
     }
 
+    publishComment() {
+        let user = this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
+        let date = Math.round((new Date()).getTime() / 1000);
+        let data = 
+        {
+            "author" : user,
+            "content" : "comment content 2",
+            "upvotes" : 420,
+            "date": date,
+        }
+
+        let newKey = firebase.database().ref().child(`/threads/`).push().key;
+        let updates = {};
+        updates[`/threads/${this.props.match.params.tid}/comments/` + newKey] = data;
+        firebase.database().ref().update(updates);
+    }
+
     render() {
         // If the props haven't been recieved yet, dont render anything until they arrive.
         if (this.props.userObject === false) {
@@ -53,6 +70,14 @@ class Settings extends Component {
 
         if (this.state.deleted) {
             return(<Redirect to="/home" />);
+        }
+
+        let comments = [];
+
+        if (this.state.currentThread.comments !== undefined) {
+            for (let commentID in this.state.currentThread.comments) {
+                comments.push(this.state.currentThread.comments[commentID]);
+            }
         }
 
         return (
@@ -128,6 +153,19 @@ class Settings extends Component {
                         </div>
                         <hr />
                         <div className="thread-page-content">{this.state.currentThread.content}</div>
+                        <div className="thread-page-comments">
+                            {comments.map((comment) => {
+                                return (
+                                    <div>
+                                        <p>content:{comment.content}</p>
+                                        <p>author:{comment.author}</p>
+                                        <p>date:{comment.date}</p>
+                                        <p>upvotes:{comment.upvotes}</p>
+                                        <hr />
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>

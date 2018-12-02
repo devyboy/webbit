@@ -14,6 +14,9 @@ class Thread extends Component {
     }
 
     render() {
+
+        let numComments = Object.keys(this.props.thread[1].comments).length;
+
         return(
             <div className="thread-object">
                 <UpvoteContainer userObject={this.props.userObject} upvotes={this.props.upvotes} id={this.props.id} />
@@ -23,7 +26,7 @@ class Thread extends Component {
                         Posted by: {this.props.author + " "}
                         <TimeAgo live={false} date={new Date(this.props.date * 1000)} />
                     </div>
-                    <div className="comments" style={{fontSize: 15}}>{this.props.thread[1].comments.numComments} Comments</div>
+                    <div className="comments" style={{fontSize: 15}}>{numComments} Comments</div>
                 </Link>
             </div>
         );

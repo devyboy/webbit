@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Thread from './Thread';
 import NewThread from "./NewThread";
 import ReactLoading from 'react-loading';
-import { Modal, Glyphicon, Button } from 'react-bootstrap';
+import { Modal, Glyphicon } from 'react-bootstrap';
 
 
 class HomePage extends Component {
