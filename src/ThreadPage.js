@@ -60,6 +60,7 @@ class Settings extends Component {
         let updates = {};
         updates[`/threads/${this.props.match.params.tid}/comments/` + newKey] = data;
         firebase.database().ref().update(updates);
+        this.setState({comment: ''});
         e.preventDefault();
     }
 
