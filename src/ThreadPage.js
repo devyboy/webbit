@@ -164,13 +164,25 @@ class Settings extends Component {
                         <hr />
                         <div className="thread-page-comments">
                             {comments.map((comment) => {
+                                if(comment == 0){ // numComments field not shown as comment
+                                    return (null);
+                                }
                                 return (
+                                    /*
                                     <div>
                                         <p>content: {comment.content}</p>
                                         <p>author: {comment.author}</p>
                                         <p>date: {comment.date}</p>
                                         <p>upvotes: {comment.upvotes}</p>
                                         <hr />
+                                    </div>
+                                    */
+                                    <div className="thread-object">
+                                        <div className="thread-title">{comment.content}</div>
+                                        <div className="thread-author" style={{fontSize: 15}}>
+                                            Posted by: {comment.author + " "}
+                                            <TimeAgo live={false} date={new Date(comment.date * 1000)} />
+                                        </div>   
                                     </div>
                                 );
                             })}
