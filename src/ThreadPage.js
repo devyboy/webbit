@@ -135,10 +135,9 @@ class Settings extends Component {
                             <Button onClick={this.deleteThread.bind(this)} bsSize="large" bsStyle="danger">Delete</Button>
                         </Modal.Footer>
                     </Modal>
-                    {this.state.currentThread === null && 
+                    {this.state.currentThread && this.props.userObject === null && 
                         <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
                     }
-                    
                     <div className="thread-page-container">
                         <div className="thread-page-title">
                             {this.state.currentThread.title}
@@ -161,51 +160,36 @@ class Settings extends Component {
                             }
                         </div>
                         <hr />
-                        <div className="thread-page-content">{this.state.currentThread.content}</div>
-                        <hr />
+                        <div className="thread-page-content">
+                            {this.state.currentThread.content}
+                            <hr />
+                        </div>
                         <div className="thread-page-comments">
-                            {comments.map((comment) => {
-                                if(comment == 0){ // numComments field not shown as comment
-                                    return (null);
-                                }
+                            {comments.map((comment, key) => {
                                 return (
-                                    /*
-                                    <div>
-                                        <p>content: {comment.content}</p>
-                                        <p>author: {comment.author}</p>
-                                        <p>date: {comment.date}</p>
-                                        <p>upvotes: {comment.upvotes}</p>
-                                        <hr />
-                                    </div>
-                                    */
-                                    <div className="thread-object">
-                                        <div className="thread-title">{comment.content}</div>
+                                    <div className="thread-object" key={key}>
                                         <div className="thread-author" style={{fontSize: 15}}>
-                                            Posted by: {comment.author + " "}
+                                            {comment.author + " "}
                                             <TimeAgo live={false} date={new Date(comment.date * 1000)} />
                                         </div>   
+                                        <div className="thread-title">{comment.content}</div>
                                     </div>
                                 );
                             })}
                         </div>
-
-                        {this.props.userObject
-                            ?
+                        {this.state.currentThread && this.props.userObject &&
                             <form onSubmit={this.handleSubmit.bind(this)}>
                                 <label>
                                     <input style={{color: "black"}} value={this.state.comment} onChange={this.handleChange.bind(this)} placeholder="Comment here" />
                                 </label>
                                 <input style={{color: "black"}} type="submit" value="Submit" />
                             </form>
-                            :
-                            <div></div>
                         }
-                        
                     </div>
                 </header>
                 <div className="App-bottombar">
                     <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
-                    Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
+                        Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
                     </p>
                 </div>
             </div>

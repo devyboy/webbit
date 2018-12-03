@@ -14,9 +14,10 @@ class Thread extends Component {
     }
 
     render() {
-
-        let numComments = Object.keys(this.props.thread[1].comments).length;
-
+        let numComments = 0;
+        if (this.props.thread[1].comments) {
+            numComments = Object.keys(this.props.thread[1].comments).length;
+        }
         return(
             <div className="thread-object">
                 <UpvoteContainer userObject={this.props.userObject} upvotes={this.props.upvotes} id={this.props.id} />
