@@ -86,6 +86,7 @@ class Settings extends Component {
             for (let commentID in this.state.currentThread.comments) {
                 comments.push(this.state.currentThread.comments[commentID]);
             }
+            comments.reverse();
         }
 
         return (
@@ -135,7 +136,7 @@ class Settings extends Component {
                             <Button onClick={this.deleteThread.bind(this)} bsSize="large" bsStyle="danger">Delete</Button>
                         </Modal.Footer>
                     </Modal>
-                    {this.state.currentThread && this.props.userObject === null && 
+                    {(this.state.currentThread === null || this.state.currentThread === undefined) &&
                         <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
                     }
                     <div className="thread-page-container">
@@ -165,17 +166,19 @@ class Settings extends Component {
                             <hr />
                         </div>
                     </div>
-                    {comments.map((comment, key) => {
-                        return (
-                            <div className="thread-page-comment" key={key}>
-                                <div className="thread-page-comment-content">{comment.content}</div>
-                                <div className="thread-page-author" style={{ fontSize: 15 }}>
-                                    {comment.author + " "}
-                                    <TimeAgo live={false} date={new Date(comment.date * 1000)} />
-                                </div>   
-                            </div>
-                        );
-                    })}
+                    <div className="thread-page-comment-container">
+                        {comments.map((comment, key) => {
+                            return (
+                                <div className="thread-page-comment" key={key}>
+                                    <div className="thread-page-comment-content">{comment.content}</div>
+                                    <div className="thread-page-author" style={{ fontSize: 15 }}>
+                                        {comment.author + " "}
+                                        <TimeAgo live={false} date={new Date(comment.date * 1000)} />
+                                    </div>   
+                                </div>
+                            );
+                        })}
+                    </div>
                     {this.state.currentThread && this.props.userObject &&
                         <form className="submit-form" onSubmit={this.handleSubmit.bind(this)}>
                             <label>

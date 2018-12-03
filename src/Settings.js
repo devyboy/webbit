@@ -43,8 +43,9 @@ class Settings extends Component {
                             <Glyphicon glyph="log-out" />
                         </div>
                     </div>
-                </div>                <div className="App-header">
-                    <h1>Yeet</h1>
+                </div>                
+                <div className="App-header">
+                    
                 </div>
             </div>
         );

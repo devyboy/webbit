@@ -298,4 +298,9 @@ input[type='checkbox'] {
 .thread-page-comment-content {
   font-size: .7em; 
   margin-bottom: .4em;
+  word-wrap: break-word;
+}
+
+.thread-page-comment-container {
+  margin-bottom: 2em;
 }
