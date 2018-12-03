@@ -187,7 +187,7 @@ input[type='checkbox'] {
 .thread-object {
   background-color: #3e4451;
   text-align: left;
-  border-radius: 7px;
+  border-radius: 5px;
   padding: .5em;
   margin: .5em;
   height: 100px;
@@ -264,7 +264,6 @@ input[type='checkbox'] {
   padding-left: 150px;
   padding-right: 150px;
   margin-top: 150px;
-  margin-bottom: 100px;
 }
 
 .thread-page-title {
@@ -282,6 +281,21 @@ input[type='checkbox'] {
   margin-bottom: 50px;
 }
 
-.thread-page-comments {
-  margin-bottom: 40px;
+
+.submit-form {
+  margin-bottom: 3em;
+}
+
+.thread-page-comment {
+  background-color: #3e4451;
+  padding: .75em;
+  border-radius: 5px;
+  margin: .4em;
+  text-align: left;
+  width: 600px;
+}
+
+.thread-page-comment-content {
+  font-size: .7em; 
+  margin-bottom: .4em;
 }

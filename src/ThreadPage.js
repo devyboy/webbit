@@ -164,31 +164,29 @@ class Settings extends Component {
                             {this.state.currentThread.content}
                             <hr />
                         </div>
-                        <div className="thread-page-comments">
-                            {comments.map((comment, key) => {
-                                return (
-                                    <div className="thread-object" key={key}>
-                                        <div className="thread-author" style={{fontSize: 15}}>
-                                            {comment.author + " "}
-                                            <TimeAgo live={false} date={new Date(comment.date * 1000)} />
-                                        </div>   
-                                        <div className="thread-title">{comment.content}</div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        {this.state.currentThread && this.props.userObject &&
-                            <form onSubmit={this.handleSubmit.bind(this)}>
-                                <label>
-                                    <input style={{color: "black"}} value={this.state.comment} onChange={this.handleChange.bind(this)} placeholder="Comment here" />
-                                </label>
-                                <input style={{color: "black"}} type="submit" value="Submit" />
-                            </form>
-                        }
                     </div>
+                    {comments.map((comment, key) => {
+                        return (
+                            <div className="thread-page-comment" key={key}>
+                                <div className="thread-page-comment-content">{comment.content}</div>
+                                <div className="thread-page-author" style={{ fontSize: 15 }}>
+                                    {comment.author + " "}
+                                    <TimeAgo live={false} date={new Date(comment.date * 1000)} />
+                                </div>   
+                            </div>
+                        );
+                    })}
+                    {this.state.currentThread && this.props.userObject &&
+                        <form className="submit-form" onSubmit={this.handleSubmit.bind(this)}>
+                            <label>
+                                <input style={{ color: "black" }} value={this.state.comment} onChange={this.handleChange.bind(this)} placeholder="Comment here" />
+                            </label>
+                            <input style={{ color: "black" }} type="submit" value="Submit" />
+                        </form>
+                    }
                 </header>
                 <div className="App-bottombar">
-                    <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
+                    <p style={{ color: "white", textAlign: "center", padding: "10px", fontSize: "15px" }}>
                         Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
                     </p>
                 </div>
