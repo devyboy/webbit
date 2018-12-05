@@ -66,7 +66,7 @@ class Settings extends Component {
 
     render() {
         // If the props haven't been recieved yet, dont render anything until they arrive.
-        if (this.props.userObject === false) {
+        if (this.props.userObject === false || this.state.currentThread === false) {
             return(
                 <div className="App">
                     <div className="App-header">
@@ -136,9 +136,6 @@ class Settings extends Component {
                             <Button onClick={this.deleteThread.bind(this)} bsSize="large" bsStyle="danger">Delete</Button>
                         </Modal.Footer>
                     </Modal>
-                    {(this.state.currentThread === null || this.state.currentThread === undefined) &&
-                        <ReactLoading type={"spin"} color={"white"} height={150} width={150} />
-                    }
                     <div className="thread-page-container">
                         <div className="thread-page-title">
                             {this.state.currentThread.title}

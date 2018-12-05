@@ -38,7 +38,7 @@ class HomePage extends Component {
   }
 
   render() {
-    if (this.props.userObject === false) {
+    if (this.props.userObject === false || !this.state.threads) {
       return(
         <div className="App">
             <div className="App-header">
@@ -88,29 +88,23 @@ class HomePage extends Component {
             <NewThread closeModal={() => this.setState({ open: false })} userObject={this.props.userObject} />
           </Modal>
           <header className="App-header">
-            {this.state.threads
-              ?
-              <div className="thread-holder">
-                {this.state.threads.map((thread, key) => {
-                return(
-                  <Thread
-                    key={key}
-                    userObject={this.props.userObject}
-                    thread={thread}
-                    title={thread[1].title}
-                    content={thread[1].content}
-                    author={thread[1].author}
-                    upvotes={thread[1].upvotes}
-                    date={thread[1].date}
-                    id={thread[0]}
-                  />
-                );
-              })}
-              </div>
-              :
-              null
-            }
-            {this.state.threads === null && <ReactLoading type={"spin"} color={"white"} height={150} width={150} />}
+            <div className="thread-holder">
+              {this.state.threads.map((thread, key) => {
+              return(
+                <Thread
+                  key={key}
+                  userObject={this.props.userObject}
+                  thread={thread}
+                  title={thread[1].title}
+                  content={thread[1].content}
+                  author={thread[1].author}
+                  upvotes={thread[1].upvotes}
+                  date={thread[1].date}
+                  id={thread[0]}
+                />
+              );
+            })}
+            </div>
           </header>
           <div className="App-bottombar">
             <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
