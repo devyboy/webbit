@@ -12,7 +12,7 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      threads: false,
+      threads: null,
       open: false,
     };
   }
@@ -38,7 +38,7 @@ class HomePage extends Component {
   }
 
   render() {
-    if (this.props.userObject === false || !this.state.threads) {
+    if (this.props.userObject === false) {
       return(
         <div className="App">
             <div className="App-header">
@@ -88,23 +88,32 @@ class HomePage extends Component {
             <NewThread closeModal={() => this.setState({ open: false })} userObject={this.props.userObject} />
           </Modal>
           <header className="App-header">
-            <div className="thread-holder">
-              {this.state.threads.map((thread, key) => {
-              return(
-                <Thread
-                  key={key}
-                  userObject={this.props.userObject}
-                  thread={thread}
-                  title={thread[1].title}
-                  content={thread[1].content}
-                  author={thread[1].author}
-                  upvotes={thread[1].upvotes}
-                  date={thread[1].date}
-                  id={thread[0]}
-                />
-              );
-            })}
-            </div>
+            {(this.state.threads === false) ?
+              <h1>There are no threads</h1>
+              :
+              <div className="thread-holder">
+                {(this.state.threads === null) 
+                  ? 
+                  null 
+                  :
+                  this.state.threads.map((thread, key) => {
+                    return(
+                      <Thread
+                        key={key}
+                        userObject={this.props.userObject}
+                        thread={thread}
+                        title={thread[1].title}
+                        content={thread[1].content}
+                        author={thread[1].author}
+                        upvotes={thread[1].upvotes}
+                        date={thread[1].date}
+                        id={thread[0]}
+                      />
+                    );
+                  })
+                }
+              </div>
+            }
           </header>
           <div className="App-bottombar">
             <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
