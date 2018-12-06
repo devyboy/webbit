@@ -30,6 +30,8 @@ class NewThread extends Component {
             "content" : this.state.content,
             "title" : this.state.title,
             "upvotes" : 1,
+            "downvoted": {},
+            "upvoted": {},
             "date": date,
         }
 

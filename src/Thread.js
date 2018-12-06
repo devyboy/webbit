@@ -20,7 +20,7 @@ class Thread extends Component {
         }
         return(
             <div className="thread-object">
-                <UpvoteContainer userObject={this.props.userObject} upvotes={this.props.upvotes} id={this.props.id} />
+                <UpvoteContainer userObject={this.props.userObject} upvotes={this.props.upvotes} upvoted={this.props.upvoted} downvoted={this.props.downvoted} id={this.props.id} />
                 <Link to={`/home/${this.props.id}`} className="thread-text">
                     <div className="thread-title">{this.props.title}</div>
                     <div className="thread-author" style={{fontSize: 15}}>
