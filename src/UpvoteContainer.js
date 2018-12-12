@@ -19,10 +19,16 @@ class Settings extends Component {
     downVote() {
         if (this.props.userObject) {
             if (this.props.downvoted === undefined || !Object.keys(this.props.downvoted).includes(this.props.userObject.uid)) {
-                    this.setState({downVoted: true, upVoted: false});
-                    firebase.database().ref(`/threads/${this.props.id}/upvoted`).child(this.props.userObject.uid).remove();
-                    firebase.database().ref(`/threads/${this.props.id}/downvoted`).update({ [this.props.userObject.uid]: true });
+                this.setState({downVoted: true, upVoted: false});
+                firebase.database().ref(`/threads/${this.props.id}/upvoted`).child(this.props.userObject.uid).remove();
+                firebase.database().ref(`/threads/${this.props.id}/downvoted`).update({ [this.props.userObject.uid]: true });
+                if (this.state.upVoted) {
+                    return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 2 });
+
+                }
+                else {
                     return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 1 });
+                }
             }
             else if (Object.keys(this.props.downvoted).includes(this.props.userObject.uid)){
                 this.setState({ downVoted: false });
@@ -35,12 +41,17 @@ class Settings extends Component {
     upVote() {
         if (this.props.userObject) {
             if (this.props.upvoted === undefined || !Object.keys(this.props.upvoted).includes(this.props.userObject.uid)) {
-                    this.setState({ upVoted: true, downVoted: false});
-                    firebase.database().ref(`/threads/${this.props.id}/downvoted`).child(this.props.userObject.uid).remove();
-                    firebase.database().ref(`/threads/${this.props.id}/upvoted`).update({ [this.props.userObject.uid]: true });
+                this.setState({ upVoted: true, downVoted: false });
+                firebase.database().ref(`/threads/${this.props.id}/downvoted`).child(this.props.userObject.uid).remove();
+                firebase.database().ref(`/threads/${this.props.id}/upvoted`).update({ [this.props.userObject.uid]: true });
+                if (this.state.downVoted) {
+                    return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes + 2 });
+                }
+                else {
                     return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes + 1 });
+                }
             }
-            else if (Object.keys(this.props.upvoted).includes(this.props.userObject.uid)){
+            else if (Object.keys(this.props.upvoted).includes(this.props.userObject.uid)) {
                 this.setState({ upVoted: false });
                 firebase.database().ref(`/threads/${this.props.id}/upvoted`).child(this.props.userObject.uid).remove();
                 return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 1 });
@@ -49,7 +60,6 @@ class Settings extends Component {
     }
 
     componentDidMount() {
-        this.setState({ originalUpvote: this.props.upvotes });
         console.log(this.props);
         if (this.props.downvoted) {
             if (Object.keys(this.props.downvoted).includes(this.props.userObject.uid)){
