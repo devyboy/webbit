@@ -61,14 +61,16 @@ class Settings extends Component {
 
     componentDidMount() {
         console.log(this.props);
-        if (this.props.downvoted) {
-            if (Object.keys(this.props.downvoted).includes(this.props.userObject.uid)){
-                this.setState({ downVoted: true });
+        if (this.props.userObject) {
+            if (this.props.downvoted) {
+                if (Object.keys(this.props.downvoted).includes(this.props.userObject.uid)){
+                    this.setState({ downVoted: true });
+                }
             }
-        }
-        if (this.props.upvoted) {
-            if (Object.keys(this.props.upvoted).includes(this.props.userObject.uid)){
-                this.setState({ upVoted: true });
+            if (this.props.upvoted) {
+                if (Object.keys(this.props.upvoted).includes(this.props.userObject.uid)){
+                    this.setState({ upVoted: true });
+                }
             }
         }
     }

@@ -17,14 +17,6 @@ class HomePage extends Component {
     };
   }
 
-  changePassword(e) {
-    firebase.auth().currentUser.updatePassword(this.state.newPassword).then((result) => {
-      this.setState({ error: "Password successfully changed. I hope you remembered it!", color: "green" });
-    }, (error) => {
-      alert(error);
-    });
-  }
-
   componentDidMount() {
     //firebase.auth().signOut();
     firebase.database().ref("/threads/").on('value', (snapshot) => {

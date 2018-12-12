@@ -14,6 +14,14 @@ class Settings extends Component {
         this.state = {};
     }
 
+    changePassword(e) {
+        firebase.auth().currentUser.updatePassword(this.state.newPassword).then((result) => {
+          this.setState({ error: "Password successfully changed. I hope you remembered it!", color: "green" });
+        }, (error) => {
+          alert(error);
+        });
+      }
+
     render() {
         // If the props are passed down but the user isn't logged in, take them back home.
         if (this.props.userObject === null) {
@@ -45,7 +53,7 @@ class Settings extends Component {
                     </div>
                 </div>                
                 <div className="App-header">
-                    
+                    Settings
                 </div>
             </div>
         );

@@ -13,10 +13,8 @@ class Login extends Component {
         this.state = {
             user: "",
             password: "",
-            newPassword: "",
             error: "",
             color: "",
-            thirdParty: null,
             checked: true,
           }
     }
