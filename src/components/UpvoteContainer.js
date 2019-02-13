@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import Upvote from "./upvote.png";
-import Downvote from "./downvote.png";
-import DownvoteGrey from "./downvotegrey.png";
-import UpvoteGrey from "./upvotegrey.png";
-import './App.css';
+import Upvote from "../images/upvote.png";
+import Downvote from "../images/downvote.png";
+import DownvoteGrey from "../images/downvotegrey.png";
+import UpvoteGrey from "../images/upvotegrey.png";
+import '../css/App.css';
 
 
 class Settings extends Component {

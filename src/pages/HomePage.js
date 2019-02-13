@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import firebase from "firebase";
-import './App.css';
+import '../css/App.css';
 import { Link } from "react-router-dom";
-import Thread from './Thread';
-import NewThread from "./NewThread";
+import Thread from '../components/Thread';
+import NewThread from "../components/NewThread";
 import ReactLoading from 'react-loading';
 import { Modal, Glyphicon } from 'react-bootstrap';
 

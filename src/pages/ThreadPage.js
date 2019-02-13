@@ -6,11 +6,7 @@ import {
 import ReactLoading from "react-loading";
 import TimeAgo from 'react-timeago'
 import { Modal, Button, Glyphicon } from 'react-bootstrap';
-import './App.css';
-import Upvote from "./upvote.png";
-import Downvote from "./downvote.png";
-import DownvoteGrey from "./downvotegrey.png";
-import UpvoteGrey from "./upvotegrey.png";
+import '../css/App.css';
 
 
 class Settings extends Component {

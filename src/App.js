@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./Login";
-import HomePage from "./HomePage";
-import Settings from "./Settings";
-import ThreadPage from "./ThreadPage"
-import FourOhFour from "./FourOhFour";
-import './App.css';
+import Login from "./pages/Login";
+import HomePage from "./pages/HomePage";
+import Settings from "./pages/Settings";
+import ThreadPage from "./pages/ThreadPage"
+import FourOhFour from "./pages/FourOhFour";
+import './css/App.css';
 import { yeet } from "./config.js";
 
 var config = {

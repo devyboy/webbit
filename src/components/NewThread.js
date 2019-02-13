@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import './App.css';
+import '../css/App.css';
 import { Modal, Button } from "react-bootstrap";
 
 class NewThread extends Component {

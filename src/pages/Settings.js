@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { Glyphicon } from "react-bootstrap";
-import './App.css';
+import '../css/App.css';
 
 
 class Settings extends Component {
