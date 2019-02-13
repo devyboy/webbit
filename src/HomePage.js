@@ -18,7 +18,6 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    //firebase.auth().signOut();
     firebase.database().ref("/threads/").on('value', (snapshot) => {
       if (snapshot.val() !== null) {
         this.setState({ threads: Object.entries(snapshot.val()) });

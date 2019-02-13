@@ -96,7 +96,7 @@ class Settings extends Component {
                     {this.props.userObject 
                         ? 
                         <div className="App-settings">
-                            <Link className="account-name" to={"/settings"}> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</Link>
+                            <div className="account-name"> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</div>
                             {this.state.currentThread.author == this.props.userObject.displayName  || this.state.currentThread.author == this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))
                                 ?
                                 <div className="delete-thread" onClick={() => this.setState({ showDelete: true })}>
