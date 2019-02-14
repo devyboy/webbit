@@ -7,7 +7,7 @@
 /coverage
 
 # production
-/build
+./build
 
 # misc
 .DS_Store
@@ -21,4 +21,3 @@ yarn-debug.log*
 yarn-error.log*
 config.js
 .firebase/*
-./public/build/*
