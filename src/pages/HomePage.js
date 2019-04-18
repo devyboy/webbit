@@ -46,7 +46,7 @@ class HomePage extends Component {
     return(
         <div className="App">
           <div className="App-topbar">
-            <h1 className="App-title" onClick={() => window.open("https://github.com/devyboy/websec-reddit")}>Webbit</h1>
+            <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
             {this.props.userObject 
               ? 
               <div className="App-settings">

@@ -29,7 +29,7 @@ class NewThread extends Component {
             "comments" : {},
             "content" : this.state.content,
             "title" : this.state.title,
-            "upvotes" : 1,
+            "upvotes" : 0,
             "downvoted": {},
             "upvoted": {},
             "date": date,

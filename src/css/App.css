@@ -304,3 +304,7 @@ input[type='checkbox'] {
 .thread-page-comment-container {
   margin-bottom: 2em;
 }
+
+#message-id {
+  font-size: 1.65em !important;
+}
