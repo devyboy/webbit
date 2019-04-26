@@ -33,7 +33,7 @@ class Settings extends Component {
     handlePassChangeConfirm(event) {
         this.setState({ newPasswordConfirm: event.target.value });
     }
-
+    // Changes the user's password, doesn't work for Google/Twitter/Facebook sign ins
     changePassword(e) {
         if (this.state.newPassword === this.state.newPasswordConfirm) {
             firebase.auth().currentUser.updatePassword(this.state.newPassword).then(() => {

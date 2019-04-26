@@ -9,6 +9,7 @@ import FourOhFour from "./pages/FourOhFour";
 import './css/App.css';
 import { yeet } from "./config.js";
 
+// Firebase Credentials
 var config = {
     apiKey: yeet.apiKey,
     authDomain: yeet.authDomain,
@@ -26,7 +27,7 @@ class App extends Component {
         this.state = {
             userObject: false,
         };
-
+        // When the user logs in, set userObject to them
         firebase.auth().onAuthStateChanged((user) => {
             this.setState({ userObject: user });
         });

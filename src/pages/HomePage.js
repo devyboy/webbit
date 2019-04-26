@@ -18,18 +18,21 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+    // When the component mounts, grab the threads from Firebase and put it in the state
     firebase.database().ref("/threads/").on('value', (snapshot) => {
       if (snapshot.val() !== null) {
         this.setState({ threads: Object.entries(snapshot.val()) });
       }
       else {
-        this.setState({ threads: false });
+        // If there aren't any threads, set it to false 
+        this.setState({ threads: false }); 
       }
     });
   }
 
   render() {
     if (this.props.userObject === false) {
+      // If the user object hasn't been recieved from the props, show the loading spinner
       return(
         <div className="App">
             <div className="App-header">
@@ -40,15 +43,17 @@ class HomePage extends Component {
     }
 
     if (this.state.threads) {
-      this.state.threads.sort().reverse(); // Order threads from latest to oldest
+      // Order threads from latest to oldest
+      this.state.threads.sort().reverse(); 
     }
-    
+    // Once the content is done loading, replace the loading spinner with the page
     return(
         <div className="App">
           <div className="App-topbar">
             <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
             {this.props.userObject 
               ? 
+              // If the user is logged in, display the welcome message 
               <div className="App-settings">
                 <div className="account-name"> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</div>
                 <div className="new-thread" onClick={() => this.setState({ open: true })}>
@@ -62,6 +67,7 @@ class HomePage extends Component {
                 </div>
               </div>
               :
+              // If they're not logged in, show a message to encourage them
               <div className="App-settings">
                 <div className="account-name" >Login to enable submissions and voting!</div>
                 <Link className="sign-in" to="/login">
@@ -79,7 +85,9 @@ class HomePage extends Component {
             <NewThread closeModal={() => this.setState({ open: false })} userObject={this.props.userObject} />
           </Modal>
           <header className="App-header">
-            {(this.state.threads === false) ?
+            {(this.state.threads === false) 
+              // threads being false means there aren't any, threads being null means something went wrong
+              ?
               <h1>There are no threads</h1>
               :
               <div className="thread-holder">
@@ -89,6 +97,7 @@ class HomePage extends Component {
                   :
                   this.state.threads.map((thread, key) => {
                     return(
+                      // If there are threads in the state, send it the Thread component
                       <Thread
                         key={key}
                         userObject={this.props.userObject}
@@ -110,7 +119,7 @@ class HomePage extends Component {
           </header>
           <div className="App-bottombar">
             <p style={{color: "white", textAlign: "center", padding: "10px", fontSize: "15px"}}>
-              Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
+              Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a> and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
             </p>
           </div>
         </div>

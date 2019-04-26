@@ -18,7 +18,7 @@ class Login extends Component {
             checked: true,
           }
     }
-      
+    // Sign in with email and password 
     signIn(user, pass) {
         firebase.auth().signInWithEmailAndPassword(user, pass).then(() => {
             return this.props.history.goBack();
@@ -26,7 +26,7 @@ class Login extends Component {
             this.setState({ error: error.message, color: "red" });
         });
     }
-    
+    // Register with email and password
     register(user, pass) {
         firebase.auth().createUserWithEmailAndPassword(user, pass).then(() => {
             this.state.checked && firebase.auth().currentUser.sendEmailVerification();
@@ -35,7 +35,7 @@ class Login extends Component {
             this.setState({ error: error.message, color: "red" });
         });
     }
-    
+    // Sign in with Google
     googleSignIn() {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then((result) => {
@@ -46,7 +46,7 @@ class Login extends Component {
             alert(error.message);
         });
     }
-    
+    // Sign in with Facebook
     facebookSignIn() {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider).then((result) => {
@@ -56,7 +56,7 @@ class Login extends Component {
             alert(error.message);
         });
     }
-    
+    // Sign in with Twitter
     twitterSignIn() {
         var provider = new firebase.auth.TwitterAuthProvider();
         firebase.auth().signInWithPopup(provider).then((result) => {
@@ -74,7 +74,7 @@ class Login extends Component {
     handlePassChange(event) {
         this.setState({ password: event.target.value });
     }
-   
+    // Sends password reset email
     forgotPassword() {
         firebase.auth().sendPasswordResetEmail(this.state.user).then(() => {
             this.setState({ error: "Password reset email sent.", color: "green" });
@@ -85,6 +85,7 @@ class Login extends Component {
     
     render() {
         if (this.props.userObject === false) {
+            // Show loading until data is recieved
             return(
                 <div className="App">
                     <div className="App-header">
@@ -94,6 +95,7 @@ class Login extends Component {
             );
         }
         if (this.props.userObject) {
+            // If the user goes to the login page while already logged in, or they log in while on the page, send them to the home page
             return(
                 <Redirect to={"/home"} />
             );

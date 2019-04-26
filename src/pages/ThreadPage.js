@@ -19,7 +19,7 @@ class Settings extends Component {
             comment: ''
         };
     }
-
+    // Get the current thread and put it in the state
     componentDidMount() {
         firebase.database().ref(`/threads/${this.props.match.params.tid}`).on("value", (snapshot) => {
             if (snapshot.val() === null) {
@@ -30,7 +30,7 @@ class Settings extends Component {
             }
         });
     }
-
+    // Deletes the thread
     deleteThread() {
         firebase.database().ref(`/threads/${this.props.match.params.tid}`).remove();
         this.setState({ deleted: true });
@@ -40,7 +40,7 @@ class Settings extends Component {
         this.setState({comment: event.target.value});
     }
     
-
+    // Publishes the comments to Firebase
     handleSubmit(e) {
         let user = this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"));
         let date = Math.round((new Date()).getTime() / 1000);
@@ -48,7 +48,7 @@ class Settings extends Component {
         {
             "author" : user,
             "content" : this.state.comment,
-            "upvotes" : 420,
+            "upvotes" : 420, // this is just a placeholder, comments don't have a score yet
             "date": date,
         }
 
@@ -71,17 +71,18 @@ class Settings extends Component {
                 </div>
             );
         }
-
+        // When you delete the thread, take you back home
         if (this.state.deleted) {
             return(<Redirect to="/home" />);
         }
 
         let comments = [];
-
+        // Put all the comments in an array
         if (this.state.currentThread.comments !== undefined) {
             for (let commentID in this.state.currentThread.comments) {
                 comments.push(this.state.currentThread.comments[commentID]);
             }
+            // Order them from new to old
             comments.reverse();
         }
 
@@ -181,11 +182,6 @@ class Settings extends Component {
                         </form>
                     }
                 </header>
-                <div className="App-bottombar">
-                    <p style={{ color: "white", textAlign: "center", padding: "10px", fontSize: "15px" }}>
-                        Made by <a href="https://github.com/devyboy" target="_blank" rel="noopener noreferrer">Dev</a>, <a href="https://github.com/mbillone" target="_blank" rel="noopener noreferrer">Matt</a>, and <a href="https://github.com/vgutta" target="_blank" rel="noopener noreferrer">Vineeth</a>
-                    </p>
-                </div>
             </div>
         );
     }

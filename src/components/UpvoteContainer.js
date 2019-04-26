@@ -18,18 +18,24 @@ class Settings extends Component {
 
     downVote() {
         if (this.props.userObject) {
+            // If the post isn't downvoted already
             if (this.props.downvoted === undefined || !Object.keys(this.props.downvoted).includes(this.props.userObject.uid)) {
                 this.setState({downVoted: true, upVoted: false});
+                // Remove the user from the list of users who upvoted the post
                 firebase.database().ref(`/threads/${this.props.id}/upvoted`).child(this.props.userObject.uid).remove();
+                // Add the user to the list of users who downvoted the post 
                 firebase.database().ref(`/threads/${this.props.id}/downvoted`).update({ [this.props.userObject.uid]: true });
                 if (this.state.upVoted) {
+                    // If they had the post upvoted already and now downvote it, decrease the vote number by 2 
                     return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 2 });
 
                 }
                 else {
+                    // If they haven't voted on the post already, subtract the vote number by 1
                     return firebase.database().ref(`/threads/${this.props.id}/`).update({ upvotes: this.props.upvotes - 1 });
                 }
             }
+            // If they have already downvoted it, just cancel the downvote
             else if (Object.keys(this.props.downvoted).includes(this.props.userObject.uid)){
                 this.setState({ downVoted: false });
                 firebase.database().ref(`/threads/${this.props.id}/downvoted`).child(this.props.userObject.uid).remove();
@@ -39,6 +45,7 @@ class Settings extends Component {
     }
 
     upVote() {
+        // Same as above but backwards
         if (this.props.userObject) {
             if (this.props.upvoted === undefined || !Object.keys(this.props.upvoted).includes(this.props.userObject.uid)) {
                 this.setState({ upVoted: true, downVoted: false });
@@ -60,13 +67,14 @@ class Settings extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         if (this.props.userObject) {
             if (this.props.downvoted) {
+                // If they downvoted the post previously, show highlight the downvote arrow to indicate this
                 if (Object.keys(this.props.downvoted).includes(this.props.userObject.uid)){
                     this.setState({ downVoted: true });
                 }
             }
+            // Same as above but backwards
             if (this.props.upvoted) {
                 if (Object.keys(this.props.upvoted).includes(this.props.userObject.uid)){
                     this.setState({ upVoted: true });
