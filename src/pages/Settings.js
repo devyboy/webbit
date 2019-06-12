@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import {
     Redirect,
+    Link
 } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { Glyphicon } from "react-bootstrap";
@@ -85,6 +86,9 @@ class Settings extends Component {
                     <h1 className="App-title" onClick={() => window.location.href = "/home"}>Webbit</h1>
                     <div className="App-settings">
                         <div className="account-name"> Hi {this.props.userObject.displayName || this.props.userObject.email.substring(0, this.props.userObject.email.indexOf("@"))}!</div>
+                        <Link className="settings" to="/">
+                            <Glyphicon glyph="home" />
+                        </Link>
                         <div className="sign-out" onClick={() => firebase.auth().signOut()}>
                             <Glyphicon glyph="log-out" />
                         </div>
